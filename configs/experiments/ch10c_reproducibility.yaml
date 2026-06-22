@@ -1,0 +1,33 @@
+{
+  "experiment_id": "ch10c_reproducibility",
+  "required_datasets": [
+    "breast_cancer_wisconsin",
+    "adult_income",
+    "credit_card_fraud",
+    "bank_marketing"
+  ],
+  "required_systems": [
+    "single_model",
+    "mean_ensemble",
+    "static_weighted_ensemble",
+    "veto_mavs",
+    "pure_mavs_gc"
+  ],
+  "required_specialists": [
+    "random_forest",
+    "gradient_boosted_trees",
+    "mlp"
+  ],
+  "required_metrics": [
+    "accuracy_variance",
+    "f1_variance",
+    "prediction_stability",
+    "decision_stability",
+    "consensus_stability",
+    "trace_stability",
+    "run_to_run_agreement",
+    "confidence_interval_width"
+  ],
+  "forbid_governance_algorithm_changes": true,
+  "allow_phase1_training": false
+}

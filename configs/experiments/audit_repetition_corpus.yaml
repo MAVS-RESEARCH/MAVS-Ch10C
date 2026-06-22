@@ -1,0 +1,16 @@
+{
+  "experiment_id": "audit_repetition_corpus",
+  "run_mode": "audit",
+  "execution_backend": "empirical_sklearn_repeated_training",
+  "source_grid_path": "results/run_manifests/repetition_grid.csv",
+  "output_dir": "results/execution_corpus/audit",
+  "allow_hyperparameter_search": false,
+  "allow_governance_tuning": false,
+  "allow_model_family_changes": false,
+  "allow_phase2_final_claims_from_training_diagnostics": false,
+  "final_mode_requires_clean_git": true,
+  "partition_row_count": 120,
+  "class_balance_strategy": "minority_preserving_cap",
+  "expected_rows": 14400,
+  "expected_run_mode": "audit"
+}

@@ -1,0 +1,19 @@
+{
+  "initialization_schedules": [
+    {
+      "id": "init_schedule_01",
+      "seed": 41001,
+      "description": "First frozen specialist initialization schedule."
+    },
+    {
+      "id": "init_schedule_02",
+      "seed": 41002,
+      "description": "Second frozen specialist initialization schedule."
+    },
+    {
+      "id": "init_schedule_03",
+      "seed": 41003,
+      "description": "Third frozen specialist initialization schedule."
+    }
+  ]
+}

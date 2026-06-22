@@ -1,0 +1,99 @@
+{
+  "artifact_hashes": {
+    "corpus_index": "79ef1f0a67d9a1dbd75d5f74160c276c0142a2628aafe4d401d0fd5aea00b8f3",
+    "frozen_run_manifests": "b1b928aaf93dd2831cfd3888e8d533257aa601c0e20d459294cc2c0e38057866",
+    "predictions_index": "fed2ba87272924922e662cf2c20e4d7d3ebd7beb3e3dbd1d0a7036476524167a",
+    "run_manifests": "f957ff49f421390c7cd794ca312c4295bbd66d77bde47ae529f37ba850d1e4c6",
+    "specialist_metadata": "10ee9e5bf1ec9cd8dae3b6bd4e6ac1fb23d8db8bbc7ba06b7471a1c6b3a9eb26",
+    "trace_index": "ec32048ff90632ac65cb60de0076734f1f4a46c4f561ce00d6a744173302aed7"
+  },
+  "benchmark_rows_per_run_max": 9,
+  "benchmark_rows_per_run_min": 9,
+  "class_balance_strategy": "minority_preserving_cap",
+  "corpus_manifest_hash": "65963cf55087e6ee510daa1fb49d40188639ee71cc11870902c058d343985d4f",
+  "empirical_prediction_available": true,
+  "environment": {
+    "command_line": [
+      "pytest",
+      "test_locked_and_audit_all_runs_recorded",
+      "audit"
+    ],
+    "environment_hash": "3d4eb851410b131c4bb39999a5a5450a7c200149614d2695ae31e248fc3de7b2",
+    "environment_variables": {},
+    "git_commit": "9952a293239a5e876813668ce6ad2ec8dcd7a41b",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python_executable": "C:\\Users\\Saif malik\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "python_version": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "execution_backend": "empirical_sklearn_repeated_training",
+  "execution_code_hashes": {
+    "scripts/run_audit_repetition_corpus.py": "4cf309c25fad1feb755fe5d0771c5cb8fbccc14a1581b301d066dbffb9d36057",
+    "scripts/run_locked_repetition_corpus.py": "3f4e4a8ac961fdd9cadfde55d0cb24be431de45d051f857e8b92d9a2fe3077e1",
+    "src/mavs_ch10c/execution/cache.py": "5dbd4bc399676276e90f89b4a00ce24725a7171234d9542dab3e987001ec4828",
+    "src/mavs_ch10c/execution/corpus_writer.py": "c472881464b2395f933f805c7917233ab4694b710cf0b09f0b4db2de12cc55e3",
+    "src/mavs_ch10c/execution/dataset_builder.py": "accdf09a03be8bcec69e0117c0636d659081904d60ca464c1d5cb34c15b949c6",
+    "src/mavs_ch10c/execution/repeated_training.py": "42719aa5650b4633547485ebf5ae65efb026473719ed148e91b0f31e89d767dc",
+    "src/mavs_ch10c/execution/specialist_runner.py": "a6119b6237900153e75a7c4e1241dc791e4ce472810a56aebb294afc51c00bfc",
+    "src/mavs_ch10c/execution/system_runner.py": "080762a37a104231332eac91ea4cd99d678632b22eaa2cd402987772e0e52f08"
+  },
+  "execution_mode": "manifest",
+  "expected_rows": 14400,
+  "experiment_config_hash": "17c1e1457475d9c7dd92c2f0110f9106e3d76d7adde064d49197025f887afe3e",
+  "final_claims_from_training_diagnostics": false,
+  "foundation_source_hash_contract": {
+    "commit": "3f8ce15dac24eaefcd1379279c30f1ded5be9a0b",
+    "dataset_config_hashes": {
+      "configs/datasets/adult_income.yaml": "df7d43f3368932124c5075077a45e2d3891db4e19c891023c925138b54f4f5e9",
+      "configs/datasets/bank_marketing.yaml": "6a7b911b73f3f1516465e4397326b71fb956f79aee136c4a93fa2eb9887f0e9a",
+      "configs/datasets/breast_cancer_wisconsin.yaml": "3d30f3dcc567a3a91be2fcc522b09a826776f34194cbfc7c799b4151753f4b34",
+      "configs/datasets/credit_card_fraud.yaml": "a7e4c7b86644a3b4339c2fc00a6a153eecd0aecc3a8e9880f5b8038b6529294b"
+    },
+    "governance_hashes": {
+      "src/mavs_ch10a/governance/diagnostics.py": "312384c19133ee6c07ae8d26dfa888d8d51fe8cad22ae6749b88e8f772772551",
+      "src/mavs_ch10a/governance/organs.py": "3f5c057e6709a74d7cdff4f5a0a7e5d33091ca821f8851cd1c7b9053d4a96efc",
+      "src/mavs_ch10a/governance/policy.py": "3848743d5484bcdf6475713fa11b50e540e0c774b604e87113c44daa3a563333",
+      "src/mavs_ch10a/governance/rebalancer.py": "3028fb0e1b65137febc38949e85a16416d896ac26a80dcad9e999a49e3000c9b",
+      "src/mavs_ch10a/governance/severity.py": "438a3bd114041495cf3ebafd3c4698c1f5296bad5e34c0298f3f2d24f5cbf9ce",
+      "src/mavs_ch10a/governance/trace.py": "1b4acec780b04b4cdf88fb0b080530b7a1c62d3bc18d053f43f87fc555957c3c"
+    },
+    "protocol_hashes": {
+      "src/mavs_ch10a/data/splits.py": "f50de5eef776d3bee7e25cac4f1b5a670c18f8bd229b788ac3e720cf207e4744",
+      "src/mavs_ch10a/evaluation/benchmark_manifest.py": "2a06feeb2a06acd87497d2abd5b9feaad8ab472d8c5e25a393af237e36dac91e",
+      "src/mavs_ch10a/preprocessing/tabular.py": "67708ce8f9a46090e473a82b5b7f6ce4360d60ee2fa9b3ee44037aae39e568c9",
+      "src/mavs_ch10a/reporting/repro_manifest.py": "0119f46226c8b3dd717f2149eaad7488dfda5643dea1af7ac9fa6e1d5cb31516"
+    },
+    "source_id": "ch10a",
+    "source_origin": "configured_candidate",
+    "specialist_config_hashes": {
+      "configs/models/gradient_boosted_trees.yaml": "f61040e8113f3daad60f940f0f97d7d70c794b5a71c61b6b60d1f06e5308fa8a",
+      "configs/models/mlp.yaml": "f669b60efd586eb884742c8e519fd1545c6f71b76fe005198760e023bc7523c3",
+      "configs/models/random_forest.yaml": "79849f94d5d0409b87e530860eae5c80dbbb2d8c39bf38610ff86cf9c813040d"
+    },
+    "system_config_hashes": {
+      "configs/systems/mean_ensemble.yaml": "cc3c135dcde169a3d10ff96c32142423cd1558dd1a89ff572435aa0b8531069e",
+      "configs/systems/pure_mavs_gc.yaml": "7b6b32d617263283eb532f55b2e6eb969b396de73327e7ea40d38d3ce1a65516",
+      "configs/systems/single_model.yaml": "9f63cacbac88b5aff627cae8a050b29a52df680ee56317b489f7b1d55c84c67e",
+      "configs/systems/static_weighted_ensemble.yaml": "4a4eef566424a962b7ee06c0cc221afeafc50c01eac7bce729d789e73aeef842",
+      "configs/systems/veto_mavs.yaml": "069b7abc39f476bc9b8453c537f458d2cf3ded1293f3b3616a37211d6b7fc046"
+    }
+  },
+  "governance_systems": [
+    "pure_mavs_gc",
+    "veto_mavs"
+  ],
+  "governance_trace_count": 51840,
+  "grid_hash": "b84012797ae3663beba6539d3840bd58594b2e3a5f4adfef68e9141ea5795ef2",
+  "model_fit_count": 2160,
+  "partition_row_count": 120,
+  "phase": "phase2_repetition_corpus",
+  "pre_execution_run_manifest_count": 14400,
+  "prediction_row_count": 129600,
+  "repetition_grid_manifest_hash": "0cc00104a5e53ea96582e3a449f6f86e5007c57cab8ed99569791f319bef10f7",
+  "row_count": 14400,
+  "run_manifest_count": 14400,
+  "run_mode": "audit",
+  "seed_registry_hash": "d15597f036cc7aa9c69af18e515019107c2df53890126725ec1005b38c89adb9",
+  "status": "pass",
+  "tuning_performed": false,
+  "unique_specialist_output_bundles": 2880
+}

@@ -1,0 +1,20 @@
+{
+  "specialist_compositions": [
+    {
+      "id": "full_rf_gbt_mlp",
+      "specialists": ["random_forest", "gradient_boosted_trees", "mlp"]
+    },
+    {
+      "id": "rf_gbt_pair",
+      "specialists": ["random_forest", "gradient_boosted_trees"]
+    },
+    {
+      "id": "rf_mlp_pair",
+      "specialists": ["random_forest", "mlp"]
+    },
+    {
+      "id": "gbt_mlp_pair",
+      "specialists": ["gradient_boosted_trees", "mlp"]
+    }
+  ]
+}

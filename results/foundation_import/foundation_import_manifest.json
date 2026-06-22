@@ -1,0 +1,105 @@
+{
+  "ch10a": {
+    "commit": "3f8ce15dac24eaefcd1379279c30f1ded5be9a0b",
+    "dataset_config_hashes": {
+      "configs/datasets/adult_income.yaml": "df7d43f3368932124c5075077a45e2d3891db4e19c891023c925138b54f4f5e9",
+      "configs/datasets/bank_marketing.yaml": "6a7b911b73f3f1516465e4397326b71fb956f79aee136c4a93fa2eb9887f0e9a",
+      "configs/datasets/breast_cancer_wisconsin.yaml": "3d30f3dcc567a3a91be2fcc522b09a826776f34194cbfc7c799b4151753f4b34",
+      "configs/datasets/credit_card_fraud.yaml": "a7e4c7b86644a3b4339c2fc00a6a153eecd0aecc3a8e9880f5b8038b6529294b"
+    },
+    "datasets": [
+      "breast_cancer_wisconsin",
+      "adult_income",
+      "credit_card_fraud",
+      "bank_marketing"
+    ],
+    "governance_hashes": {
+      "src/mavs_ch10a/governance/diagnostics.py": "312384c19133ee6c07ae8d26dfa888d8d51fe8cad22ae6749b88e8f772772551",
+      "src/mavs_ch10a/governance/organs.py": "3f5c057e6709a74d7cdff4f5a0a7e5d33091ca821f8851cd1c7b9053d4a96efc",
+      "src/mavs_ch10a/governance/policy.py": "3848743d5484bcdf6475713fa11b50e540e0c774b604e87113c44daa3a563333",
+      "src/mavs_ch10a/governance/rebalancer.py": "3028fb0e1b65137febc38949e85a16416d896ac26a80dcad9e999a49e3000c9b",
+      "src/mavs_ch10a/governance/severity.py": "438a3bd114041495cf3ebafd3c4698c1f5296bad5e34c0298f3f2d24f5cbf9ce",
+      "src/mavs_ch10a/governance/trace.py": "1b4acec780b04b4cdf88fb0b080530b7a1c62d3bc18d053f43f87fc555957c3c"
+    },
+    "protocol_hashes": {
+      "src/mavs_ch10a/data/splits.py": "f50de5eef776d3bee7e25cac4f1b5a670c18f8bd229b788ac3e720cf207e4744",
+      "src/mavs_ch10a/evaluation/benchmark_manifest.py": "2a06feeb2a06acd87497d2abd5b9feaad8ab472d8c5e25a393af237e36dac91e",
+      "src/mavs_ch10a/preprocessing/tabular.py": "67708ce8f9a46090e473a82b5b7f6ce4360d60ee2fa9b3ee44037aae39e568c9",
+      "src/mavs_ch10a/reporting/repro_manifest.py": "0119f46226c8b3dd717f2149eaad7488dfda5643dea1af7ac9fa6e1d5cb31516"
+    },
+    "repo_url": "https://github.com/MAVS-RESEARCH/MAVS-Chapter-10A.git",
+    "report_hashes": {
+      "results/reports/artifact_inventory.json": "62e82435c5f04ebf84a19e1ceae45bc3370164f9145c944fc6c20fd40a5d7a14",
+      "results/reports/reproducibility_manifest.json": "aa899fd256ff804ddb02425e1d01e6f8c75485659bec48da1273a3334e90adda",
+      "results/reports/verification_report.md": "a7911e752bb2d84b74800fbbcfeb95ec778e99309ce7bcdc83f47dc3b56fa964"
+    },
+    "source_id": "ch10a",
+    "source_origin": "configured_candidate",
+    "source_path": "C:\\Users\\Saif malik\\MAVS-Ch10A",
+    "specialist_config_hashes": {
+      "configs/models/gradient_boosted_trees.yaml": "f61040e8113f3daad60f940f0f97d7d70c794b5a71c61b6b60d1f06e5308fa8a",
+      "configs/models/mlp.yaml": "f669b60efd586eb884742c8e519fd1545c6f71b76fe005198760e023bc7523c3",
+      "configs/models/random_forest.yaml": "79849f94d5d0409b87e530860eae5c80dbbb2d8c39bf38610ff86cf9c813040d"
+    },
+    "specialists": [
+      "random_forest",
+      "gradient_boosted_trees",
+      "mlp"
+    ],
+    "status": "pass",
+    "system_config_hashes": {
+      "configs/systems/mean_ensemble.yaml": "cc3c135dcde169a3d10ff96c32142423cd1558dd1a89ff572435aa0b8531069e",
+      "configs/systems/pure_mavs_gc.yaml": "7b6b32d617263283eb532f55b2e6eb969b396de73327e7ea40d38d3ce1a65516",
+      "configs/systems/single_model.yaml": "9f63cacbac88b5aff627cae8a050b29a52df680ee56317b489f7b1d55c84c67e",
+      "configs/systems/static_weighted_ensemble.yaml": "4a4eef566424a962b7ee06c0cc221afeafc50c01eac7bce729d789e73aeef842",
+      "configs/systems/veto_mavs.yaml": "069b7abc39f476bc9b8453c537f458d2cf3ded1293f3b3616a37211d6b7fc046"
+    },
+    "systems": [
+      "single_model",
+      "mean_ensemble",
+      "static_weighted_ensemble",
+      "veto_mavs",
+      "pure_mavs_gc"
+    ]
+  },
+  "ch10a_import_manifest_hash": "75d6f7b57214e6b77e17c654d37616ae77fd95609113976e22b7ed352454caad",
+  "ch10b": {
+    "commit": "6411af5b029de4216a5506beabd3ddf7182df4d9",
+    "repo_url": "https://github.com/MAVS-RESEARCH/MAVS-Ch10B.git",
+    "report_hashes": {
+      "results/reports/artifact_inventory.json": "932c1fe7871c1fd07361544a8b883284b217e83ee092b2daf53219bee9c14d31",
+      "results/reports/robustness_reproducibility_manifest.json": "ec0d3ac3c2330e1a19293a2ab6c453a420c472de09964a4d0848f49e8c35cae7",
+      "results/reports/verification_report.md": "189d14338bbd16453be4e99afbcff59713aeb55d05f059bafcd59191bcb91510"
+    },
+    "source_id": "ch10b",
+    "source_origin": "configured_candidate",
+    "source_path": "C:\\Users\\Saif malik\\MAVS-Ch10B",
+    "status": "pass",
+    "verification_utility_hashes": {
+      "scripts/hash_artifacts.py": "e33c9fbad7ce67bc99610083031ac9f9d73030e3f1c2aafe4c9b633a884608cb",
+      "scripts/reproduce_all.py": "ce8e6d7955aa7c905603f262776084838af5cd2434566a260706414044ca02a4",
+      "scripts/verify_artifacts.py": "99965c3c03ea820fae2a5e0ba3fdf9059834807bcf43e0019d2ea5a2988d05cb",
+      "src/mavs_ch10b/stress/run_manifest.py": "db9e81be9915d8a9e4369fb0256cc11132890f5a4a90c350320caebbb348867b",
+      "src/mavs_ch10b/verification/artifact_inventory.py": "287bb6eb5b0893435cf60ac41dd998be9b4fdc7df1130b7dcbacdf816893a79c",
+      "src/mavs_ch10b/verification/hash_utils.py": "eb3b13e4e71f22a95a99f84259d4268274918c35f219f6b89edc229a3ea1dc66",
+      "src/mavs_ch10b/verification/import_audit.py": "1852c7aba6a9526ca9c423b6b04ed8e66df37c0de15dc62650fc2fda6f519198",
+      "src/mavs_ch10b/verification/release_gate.py": "b77754194734ff78225741bf7a253c00ba0b4a867962005de5f5ced4ef3d3949"
+    }
+  },
+  "ch10b_import_manifest_hash": "a478f588c9ce245fe054e091caa1749eeb549ad1119cc1beb7d671330d2eef0b",
+  "environment": {
+    "command_line": [
+      "pytest",
+      "test_no_algorithmic_governance_modification"
+    ],
+    "environment_hash": "0755745b064aa75ee77c8a7b63100e5d53027c1b969e48d897b4391ad8cea8c6",
+    "environment_variables": {},
+    "git_commit": "9952a293239a5e876813668ce6ad2ec8dcd7a41b",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python_executable": "C:\\Users\\Saif malik\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "python_version": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "foundation_import_manifest_hash": "f1535b5ef817c6401d0cffd337f921963743d6ac587b273619fbe30705c8033b",
+  "phase": "phase1_foundation_import",
+  "status": "pass"
+}

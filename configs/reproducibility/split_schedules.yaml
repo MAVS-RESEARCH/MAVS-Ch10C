@@ -1,0 +1,76 @@
+{
+  "split_schedules": [
+    {
+      "id": "locked_split_01",
+      "run_mode": "locked",
+      "seed": 31001,
+      "train_fraction": 0.60,
+      "validation_fraction": 0.15,
+      "calibration_fraction": 0.10,
+      "benchmark_fraction": 0.15
+    },
+    {
+      "id": "locked_split_02",
+      "run_mode": "locked",
+      "seed": 31002,
+      "train_fraction": 0.60,
+      "validation_fraction": 0.15,
+      "calibration_fraction": 0.10,
+      "benchmark_fraction": 0.15
+    },
+    {
+      "id": "locked_split_03",
+      "run_mode": "locked",
+      "seed": 31003,
+      "train_fraction": 0.60,
+      "validation_fraction": 0.15,
+      "calibration_fraction": 0.10,
+      "benchmark_fraction": 0.15
+    },
+    {
+      "id": "locked_split_04",
+      "run_mode": "locked",
+      "seed": 31004,
+      "train_fraction": 0.60,
+      "validation_fraction": 0.15,
+      "calibration_fraction": 0.10,
+      "benchmark_fraction": 0.15
+    },
+    {
+      "id": "locked_split_05",
+      "run_mode": "locked",
+      "seed": 31005,
+      "train_fraction": 0.60,
+      "validation_fraction": 0.15,
+      "calibration_fraction": 0.10,
+      "benchmark_fraction": 0.15
+    },
+    {
+      "id": "audit_split_01",
+      "run_mode": "audit",
+      "seed": 32001,
+      "train_fraction": 0.60,
+      "validation_fraction": 0.15,
+      "calibration_fraction": 0.10,
+      "benchmark_fraction": 0.15
+    },
+    {
+      "id": "audit_split_02",
+      "run_mode": "audit",
+      "seed": 32002,
+      "train_fraction": 0.60,
+      "validation_fraction": 0.15,
+      "calibration_fraction": 0.10,
+      "benchmark_fraction": 0.15
+    },
+    {
+      "id": "audit_split_03",
+      "run_mode": "audit",
+      "seed": 32003,
+      "train_fraction": 0.60,
+      "validation_fraction": 0.15,
+      "calibration_fraction": 0.10,
+      "benchmark_fraction": 0.15
+    }
+  ]
+}

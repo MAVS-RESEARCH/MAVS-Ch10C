@@ -1,0 +1,54 @@
+{
+  "source_id": "ch10a",
+  "chapter": "10A",
+  "repo_url": "https://github.com/MAVS-RESEARCH/MAVS-Chapter-10A.git",
+  "env_var": "MAVS_CH10A_ROOT",
+  "local_candidates": [
+    "../MAVS-Chapter-10A",
+    "../MAVS-Ch10A",
+    "C:/Users/Saif malik/MAVS-Chapter-10A",
+    "C:/Users/Saif malik/MAVS-Ch10A"
+  ],
+  "clone": {
+    "enabled": true,
+    "path": "external/ch10a/source",
+    "depth": 1
+  },
+  "required_datasets": [
+    "breast_cancer_wisconsin",
+    "adult_income",
+    "credit_card_fraud",
+    "bank_marketing"
+  ],
+  "required_specialists": [
+    "random_forest",
+    "gradient_boosted_trees",
+    "mlp"
+  ],
+  "required_systems": [
+    "single_model",
+    "mean_ensemble",
+    "static_weighted_ensemble",
+    "veto_mavs",
+    "pure_mavs_gc"
+  ],
+  "governance_files": [
+    "src/mavs_ch10a/governance/diagnostics.py",
+    "src/mavs_ch10a/governance/severity.py",
+    "src/mavs_ch10a/governance/rebalancer.py",
+    "src/mavs_ch10a/governance/organs.py",
+    "src/mavs_ch10a/governance/policy.py",
+    "src/mavs_ch10a/governance/trace.py"
+  ],
+  "protocol_files": [
+    "src/mavs_ch10a/data/splits.py",
+    "src/mavs_ch10a/preprocessing/tabular.py",
+    "src/mavs_ch10a/evaluation/benchmark_manifest.py",
+    "src/mavs_ch10a/reporting/repro_manifest.py"
+  ],
+  "report_files": [
+    "results/reports/reproducibility_manifest.json",
+    "results/reports/artifact_inventory.json",
+    "results/reports/verification_report.md"
+  ]
+}

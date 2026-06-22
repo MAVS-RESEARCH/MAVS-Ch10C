@@ -1,0 +1,20 @@
+{
+  "run_modes": {
+    "locked": {
+      "execution_seed_namespace": "locked_execution_seeds",
+      "split_run_mode": "locked",
+      "expected_execution_seed_count": 30,
+      "expected_split_schedule_count": 5,
+      "expected_initialization_schedule_count": 3,
+      "expected_specialist_composition_count": 4
+    },
+    "audit": {
+      "execution_seed_namespace": "audit_execution_seeds",
+      "split_run_mode": "audit",
+      "expected_execution_seed_count": 20,
+      "expected_split_schedule_count": 3,
+      "expected_initialization_schedule_count": 3,
+      "expected_specialist_composition_count": 4
+    }
+  }
+}

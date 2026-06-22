@@ -1,0 +1,23 @@
+{
+  "commit": "6411af5b029de4216a5506beabd3ddf7182df4d9",
+  "repo_url": "https://github.com/MAVS-RESEARCH/MAVS-Ch10B.git",
+  "report_hashes": {
+    "results/reports/artifact_inventory.json": "932c1fe7871c1fd07361544a8b883284b217e83ee092b2daf53219bee9c14d31",
+    "results/reports/robustness_reproducibility_manifest.json": "ec0d3ac3c2330e1a19293a2ab6c453a420c472de09964a4d0848f49e8c35cae7",
+    "results/reports/verification_report.md": "189d14338bbd16453be4e99afbcff59713aeb55d05f059bafcd59191bcb91510"
+  },
+  "source_id": "ch10b",
+  "source_origin": "configured_candidate",
+  "source_path": "C:\\Users\\Saif malik\\MAVS-Ch10B",
+  "status": "pass",
+  "verification_utility_hashes": {
+    "scripts/hash_artifacts.py": "e33c9fbad7ce67bc99610083031ac9f9d73030e3f1c2aafe4c9b633a884608cb",
+    "scripts/reproduce_all.py": "ce8e6d7955aa7c905603f262776084838af5cd2434566a260706414044ca02a4",
+    "scripts/verify_artifacts.py": "99965c3c03ea820fae2a5e0ba3fdf9059834807bcf43e0019d2ea5a2988d05cb",
+    "src/mavs_ch10b/stress/run_manifest.py": "db9e81be9915d8a9e4369fb0256cc11132890f5a4a90c350320caebbb348867b",
+    "src/mavs_ch10b/verification/artifact_inventory.py": "287bb6eb5b0893435cf60ac41dd998be9b4fdc7df1130b7dcbacdf816893a79c",
+    "src/mavs_ch10b/verification/hash_utils.py": "eb3b13e4e71f22a95a99f84259d4268274918c35f219f6b89edc229a3ea1dc66",
+    "src/mavs_ch10b/verification/import_audit.py": "1852c7aba6a9526ca9c423b6b04ed8e66df37c0de15dc62650fc2fda6f519198",
+    "src/mavs_ch10b/verification/release_gate.py": "b77754194734ff78225741bf7a253c00ba0b4a867962005de5f5ced4ef3d3949"
+  }
+}

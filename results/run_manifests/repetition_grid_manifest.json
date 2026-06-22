@@ -1,0 +1,26 @@
+{
+  "audit_row_count": 14400,
+  "csv_path": "C:\\Users\\Saif malik\\MAVS-Ch-10C\\results\\run_manifests\\repetition_grid.csv",
+  "dataset_count": 4,
+  "environment": {
+    "command_line": [
+      "pytest",
+      "test_repetition_grid_manifest_written"
+    ],
+    "environment_hash": "1613a42ea9690f6b1e5ab80ad92d605e431db7bd3eb9d0d42a78c2a9fe9e1786",
+    "environment_variables": {},
+    "git_commit": "9952a293239a5e876813668ce6ad2ec8dcd7a41b",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python_executable": "C:\\Users\\Saif malik\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "python_version": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "grid_hash": "0cc00104a5e53ea96582e3a449f6f86e5007c57cab8ed99569791f319bef10f7",
+  "locked_row_count": 36000,
+  "manifest_hash": "e1e32fa7c414ddc2cc23777b87ff6184d63575f391691870075fa0fcd34993cc",
+  "phase": "phase1_repetition_grid",
+  "row_count": 50400,
+  "run_mode": "all",
+  "seed_registry_hash": "d15597f036cc7aa9c69af18e515019107c2df53890126725ec1005b38c89adb9",
+  "status": "pass",
+  "system_count": 5
+}

@@ -1,0 +1,32 @@
+{
+  "source_id": "ch10b",
+  "chapter": "10B",
+  "repo_url": "https://github.com/MAVS-RESEARCH/MAVS-Ch10B.git",
+  "env_var": "MAVS_CH10B_ROOT",
+  "local_candidates": [
+    "../MAVS-Ch10B",
+    "../MAVS-Chapter-10B",
+    "C:/Users/Saif malik/MAVS-Ch10B",
+    "C:/Users/Saif malik/MAVS-Chapter-10B"
+  ],
+  "clone": {
+    "enabled": true,
+    "path": "external/ch10b/source",
+    "depth": 1
+  },
+  "verification_files": [
+    "src/mavs_ch10b/verification/hash_utils.py",
+    "src/mavs_ch10b/verification/artifact_inventory.py",
+    "src/mavs_ch10b/verification/release_gate.py",
+    "src/mavs_ch10b/verification/import_audit.py",
+    "src/mavs_ch10b/stress/run_manifest.py",
+    "scripts/hash_artifacts.py",
+    "scripts/verify_artifacts.py",
+    "scripts/reproduce_all.py"
+  ],
+  "report_files": [
+    "results/reports/artifact_inventory.json",
+    "results/reports/verification_report.md",
+    "results/reports/robustness_reproducibility_manifest.json"
+  ]
+}

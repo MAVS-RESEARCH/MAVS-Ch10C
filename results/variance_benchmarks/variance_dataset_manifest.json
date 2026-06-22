@@ -1,0 +1,88 @@
+{
+  "artifact_hashes": {
+    "audit_corpus_manifest": "65963cf55087e6ee510daa1fb49d40188639ee71cc11870902c058d343985d4f",
+    "audit_variance_rows": "19c83733ffa208c2a02b080c9df9bc518dedd1127de27922f0794ac0ac69802f",
+    "locked_corpus_manifest": "a2fd4913c121e4823e01b1bec8e9ac09cd18ea03c538802c7225e6242ea0b686",
+    "locked_variance_rows": "6ca5e5a1bba8872e2187c4df698ceed711cf825c72f83cb0b3c6022359aa5270",
+    "system_delta_rows": "28aaf74f9f8c681b9d8595678b813349a4d7b134f6dc2402ecc070fb393e8ec0"
+  },
+  "audit": {
+    "aligned_group_count": 25920,
+    "dataset_count": 4,
+    "datasets": [
+      "adult_income",
+      "bank_marketing",
+      "breast_cancer_wisconsin",
+      "credit_card_fraud"
+    ],
+    "delta_row_count": 103680,
+    "execution_seed_count": 20,
+    "initialization_schedule_count": 3,
+    "prediction_row_count": 129600,
+    "row_count": 129600,
+    "specialist_composition_count": 4,
+    "split_schedule_count": 3,
+    "system_count": 5,
+    "systems": [
+      "mean_ensemble",
+      "pure_mavs_gc",
+      "single_model",
+      "static_weighted_ensemble",
+      "veto_mavs"
+    ],
+    "variance_row_count": 129600
+  },
+  "delta_row_count": 362880,
+  "empirical_prediction_available": true,
+  "locked": {
+    "aligned_group_count": 64800,
+    "dataset_count": 4,
+    "datasets": [
+      "adult_income",
+      "bank_marketing",
+      "breast_cancer_wisconsin",
+      "credit_card_fraud"
+    ],
+    "delta_row_count": 259200,
+    "execution_seed_count": 30,
+    "initialization_schedule_count": 3,
+    "prediction_row_count": 324000,
+    "row_count": 324000,
+    "specialist_composition_count": 4,
+    "split_schedule_count": 5,
+    "system_count": 5,
+    "systems": [
+      "mean_ensemble",
+      "pure_mavs_gc",
+      "single_model",
+      "static_weighted_ensemble",
+      "veto_mavs"
+    ],
+    "variance_row_count": 324000
+  },
+  "missing_units": [],
+  "phase": "phase3_variance_benchmark_dataset",
+  "pure_mavs_delta_baselines": [
+    "single_model",
+    "mean_ensemble",
+    "static_weighted_ensemble",
+    "veto_mavs"
+  ],
+  "source_backend": "empirical_sklearn_repeated_training",
+  "static_weight_policy": "imported_frozen_ch10a_config",
+  "status": "pass",
+  "trace_field_columns": [
+    "trace_s",
+    "trace_r",
+    "trace_z",
+    "trace_a",
+    "trace_w",
+    "trace_m",
+    "trace_theta",
+    "trace_R",
+    "trace_hard_veto",
+    "trace_decision"
+  ],
+  "trace_fields_available_for_phase4": true,
+  "variance_dataset_manifest_hash": "12b30b5f246432946e717a9de4740de8f761906027d94b10c0afb32fd395d5cb"
+}
