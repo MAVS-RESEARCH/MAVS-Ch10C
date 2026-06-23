@@ -1,0 +1,142 @@
+{
+  "experiment_id": "phase6_corruption_aware_reproducibility",
+  "schema_version": "1.0",
+  "suite_config_path": "configs/corruption/ch10b_corruption_suite.yaml",
+  "source_corpus_paths": {
+    "locked": "results/execution_corpus/locked/corpus_index.csv",
+    "audit": "results/execution_corpus/audit/corpus_index.csv"
+  },
+  "source_prediction_paths": {
+    "locked": "results/execution_corpus/locked/predictions_index.csv",
+    "audit": "results/execution_corpus/audit/predictions_index.csv"
+  },
+  "source_trace_paths": {
+    "locked": "results/execution_corpus/locked/trace_index.csv",
+    "audit": "results/execution_corpus/audit/trace_index.csv"
+  },
+  "source_manifests": {
+    "locked": "results/execution_corpus/locked/corpus_manifest.json",
+    "audit": "results/execution_corpus/audit/corpus_manifest.json",
+    "phase5_artifact_manifest": "results/reports/reproducibility_artifact_manifest.json",
+    "phase5_clean_variance_table": "results/reports/variance_tables.csv",
+    "phase5_clean_stability_table": "results/reports/stability_tables.csv"
+  },
+  "output_paths": {
+    "execution_manifest": "results/corruption_reproducibility/corruption_execution_manifest.json",
+    "metric_manifest": "results/corruption_reproducibility/corruption_metric_manifest.json",
+    "locked_summary": "results/corruption_reproducibility/locked/corruption_run_summary.csv",
+    "audit_summary": "results/corruption_reproducibility/audit/corruption_run_summary.csv",
+    "reproducibility_tables": "results/reports/corruption_reproducibility_tables.csv",
+    "stability_tables": "results/reports/corruption_stability_tables.csv",
+    "variance_tables": "results/reports/corruption_variance_tables.csv",
+    "trace_stability_tables": "results/reports/corruption_trace_stability_tables.csv",
+    "claim_support_ledger": "results/reports/corruption_claim_support_ledger.csv",
+    "report": "results/reports/corruption_reproducibility_report.md",
+    "verification_addendum": "results/reports/corruption_verification_addendum.md"
+  },
+  "figure_paths": {
+    "prediction_stability_by_corruption": "results/figures/prediction_stability_by_corruption.png",
+    "decision_stability_by_corruption": "results/figures/decision_stability_by_corruption.png",
+    "consensus_stability_by_corruption": "results/figures/consensus_stability_by_corruption.png",
+    "trace_stability_by_corruption": "results/figures/trace_stability_by_corruption.png",
+    "variance_by_corruption": "results/figures/variance_by_corruption.png",
+    "confidence_interval_width_by_corruption": "results/figures/confidence_interval_width_by_corruption.png"
+  },
+  "datasets": [
+    "breast_cancer_wisconsin",
+    "adult_income",
+    "credit_card_fraud",
+    "bank_marketing"
+  ],
+  "systems": [
+    "single_model",
+    "mean_ensemble",
+    "static_weighted_ensemble",
+    "veto_mavs",
+    "pure_mavs_gc"
+  ],
+  "governance_systems": [
+    "veto_mavs",
+    "pure_mavs_gc"
+  ],
+  "run_modes": [
+    "locked",
+    "audit"
+  ],
+  "specialist_compositions": [
+    "full_rf_gbt_mlp",
+    "rf_gbt_pair",
+    "rf_mlp_pair",
+    "gbt_mlp_pair"
+  ],
+  "families": [
+    "adversarial_confidence_inflation",
+    "confidence_distortion",
+    "distribution_shift",
+    "feature_noise",
+    "label_noise",
+    "missing_features",
+    "random_feature_deletion",
+    "specialist_failure",
+    "synthetic_sensor_failure"
+  ],
+  "levels": [
+    0.0,
+    0.05,
+    0.1,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1.0
+  ],
+  "variance_metrics": [
+    "accuracy_variance",
+    "f1_variance",
+    "rejection_variance",
+    "threshold_variance",
+    "severity_variance",
+    "weight_variance"
+  ],
+  "stability_metrics": [
+    "prediction_stability",
+    "decision_stability",
+    "consensus_stability",
+    "trace_stability",
+    "run_to_run_agreement"
+  ],
+  "confidence_metrics": [
+    "confidence_interval_width",
+    "bootstrap_confidence_interval_width"
+  ],
+  "trace_fields": [
+    "s",
+    "r",
+    "z",
+    "a",
+    "w",
+    "theta",
+    "R",
+    "hard_veto",
+    "decision",
+    "trace_hash"
+  ],
+  "clean_anchor_tolerance": 1e-12,
+  "z_value": 1.96,
+  "bootstrap_width_multiplier": 1.08,
+  "summary_aggregation_grain": [
+    "run_mode",
+    "dataset_id",
+    "system_id",
+    "specialist_composition_id",
+    "corruption_family",
+    "corruption_level"
+  ],
+  "allow_hyperparameter_search": false,
+  "allow_architecture_search": false,
+  "allow_corruption_level_tuning": false,
+  "allow_threshold_tuning_after_corruption": false,
+  "allow_governance_policy_modification": false,
+  "use_audit_to_select_metrics_or_language": false,
+  "negative_neutral_mixed_results_preserved": true
+}

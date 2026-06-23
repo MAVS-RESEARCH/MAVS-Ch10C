@@ -1,0 +1,109 @@
+{
+  "artifact_hashes": {
+    "results/corruption_reproducibility/audit/corruption_run_summary.csv": "ec1a60d4e98bfe9c6848b55a430aee74fc901ee3b9be91ce7ecc7e806bf03b29",
+    "results/corruption_reproducibility/corruption_execution_manifest.json": "b1b89df83bfb7abf7de7c12942fe918d312c36548bc8fe2b9f87a1a964542c37",
+    "results/corruption_reproducibility/locked/corruption_run_summary.csv": "bbcbe4d0c479c59de6c7fc75d830528a85f61bd64eb6f44bf788511b9f539995",
+    "results/figures/confidence_interval_width_by_corruption.png": "cb7b42d87805f9b094cc5662c41a2403ba483bc783d394ab87dc6d571b10cce1",
+    "results/figures/consensus_stability_by_corruption.png": "722d18be04e1d4ca42e96a514b497d6db372c366baf5e9d8d57da508ec25eb5b",
+    "results/figures/decision_stability_by_corruption.png": "80756a2e1a3a274551d29a36471b54a0d37637025773a376aa2deb92f4a6d3c9",
+    "results/figures/prediction_stability_by_corruption.png": "11456cf57e63e3c874785494f199bf9677c7d11ab2965ee7ff506dd084f52fe9",
+    "results/figures/trace_stability_by_corruption.png": "0955e89de79cd62176fde8db4ef945ecbe4ee10cbb411de2fa91852cfd7acfd1",
+    "results/figures/variance_by_corruption.png": "f13b36dfa58298c2dfee1bbce27f731679af6b9951e651a3ca181e10eb68cb5c",
+    "results/reports/corruption_claim_support_ledger.csv": "e07a9b6e3b643f8b6f4157c896952479c6a2eb62ef63bf181f9e41c1a68eb947",
+    "results/reports/corruption_reproducibility_report.md": "d1230ad883c78b40f3ef06165234da6cbd86c68ffb885e8fb2279c8a2d54a283",
+    "results/reports/corruption_reproducibility_tables.csv": "ec32e33cbfcd6a5776fef19c5e9b524c29370fe0ceaf71e6e21c9c909aa0ce45",
+    "results/reports/corruption_stability_tables.csv": "eabe173f98ad776d4c5835f1be98b567b55c6101bc220bbd7ffe7f735ff87423",
+    "results/reports/corruption_trace_stability_tables.csv": "98222c03f06935d0232ab1748e14bfbdfe332d81420135e946da1b1d75dd5bd3",
+    "results/reports/corruption_variance_tables.csv": "59777b17e4d188b9e76c46c46700a3202668b45dfe9d43604583cc69c3e5fd4f",
+    "results/reports/corruption_verification_addendum.md": "96715b79f9e98dfc93f783973e35f364aee305b19b01c4a6fcf76e21b7a1fe28"
+  },
+  "claim_policy": {
+    "all_claims_reference_artifacts": true,
+    "clean_phase5_metrics_rewritten": false,
+    "global_validation_claim_made": false,
+    "negative_neutral_mixed_results_preserved": true
+  },
+  "code_hashes": {
+    "configs/corruption/ch10b_corruption_suite.yaml": "a0e599e88f5c792e92b9014ecb2c0e1833cb0870e58d8773ddc1c05f63d0be2f",
+    "configs/experiments/corruption_reproducibility.yaml": "6ba101a828f53e821dc485f75f9e156a17c20c8945928a563f98003abb2f5c3a",
+    "scripts/build_corruption_reproducibility_corpus.py": "95cef71660b2b2a520db3f4f8c58dbbff1952eb78fb66e1376595bd305fac092",
+    "scripts/build_corruption_reproducibility_report.py": "b5c959bae8544ac70e95d4de599a2782be2c81e39cd1caceaee718240e998bc7",
+    "scripts/build_corruption_reproducibility_tables.py": "5a101d6ccc87c2487e3f9c672df25fae21333ceefec0ce539b5ebe46cb703f29",
+    "scripts/build_corruption_stability_figures.py": "5baaf289bd4c4ee98c989d224b0de6d35088fd653ce4c5b5d13200fb13095842",
+    "src/mavs_ch10c/corruption/__init__.py": "08833e41463a8a6c8db497cc1118a5719960335680a66758cc0249b6caffd2fd",
+    "src/mavs_ch10c/corruption/cache.py": "34eac8edf06fb98c7a20ddf9e2586ba54576cf19aa64dce7fe6ca37d1f3af2f1",
+    "src/mavs_ch10c/corruption/ch10b_suite.py": "8279ea7903a762829ba7afe5f8e38b25b929f4daf8dcb682eff06f878027e9ab",
+    "src/mavs_ch10c/corruption/corruption_matrix.py": "c6280403899e4d739e222301e42625d1c4b828b965f6f1c57673f92d2739c58b",
+    "src/mavs_ch10c/corruption/corruption_runner.py": "94d7a0a39222ec1511f685c639a63fd5dc147ac1cffe7b5c8ed37b6cc3b66d37",
+    "src/mavs_ch10c/corruption/corruption_writer.py": "a677af83946e3aa0345533e611fdb5ae3cf671e2d72b06c8f05175c7ac3b330c",
+    "src/mavs_ch10c/corruption_metrics/__init__.py": "d92f8a7d730fd4bb47101fd0cd555905ca2744e2f57071ffb6e083556bd1b52b",
+    "src/mavs_ch10c/corruption_metrics/confidence.py": "a7456732b794085ac08ffb79a518f278c8524d78ed2d2192ed43a81953060b6c",
+    "src/mavs_ch10c/corruption_metrics/manifest.py": "a42190aee10f981bac9a68bce98067c7f5c4d1d291e173a2ebdfd3275c073185",
+    "src/mavs_ch10c/corruption_metrics/reporting.py": "1abbde8df387c1af4b3c16b0663fb5f677bcff73e7b299c17dec5fbc2f4a638e",
+    "src/mavs_ch10c/corruption_metrics/stability.py": "869f9b6885f89312ce6d84523df1af25cfe0dc0b71c7b148b6eddc768202b9ed",
+    "src/mavs_ch10c/corruption_metrics/trace.py": "679d1f32d7f5df031a5c98b8006782834537f0147206efa0827932ebc197b2bb",
+    "src/mavs_ch10c/corruption_metrics/variance.py": "1cca3c2c3bb3f2c3d949428956597716dad4e3d6aedb15b89c8ff46ebe89cf1c"
+  },
+  "confidence_metrics": [
+    "confidence_interval_width",
+    "bootstrap_confidence_interval_width"
+  ],
+  "corruption_metric_manifest_hash": "44db16cf92831087bacf54adf5b4b31c8eea67000aa98d6bd22c7c1508ea0c46",
+  "execution_manifest_hash": "330b54ed7c885c1c6c6f548254ee96f66d1e44f80e17efbdc712b966b59b51b9",
+  "families": [
+    "adversarial_confidence_inflation",
+    "confidence_distortion",
+    "distribution_shift",
+    "feature_noise",
+    "label_noise",
+    "missing_features",
+    "random_feature_deletion",
+    "specialist_failure",
+    "synthetic_sensor_failure"
+  ],
+  "governance_policy_modified": false,
+  "hyperparameter_search_performed": false,
+  "levels": [
+    0.0,
+    0.05,
+    0.1,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1.0
+  ],
+  "metric_manifest_path": "results/corruption_reproducibility/corruption_metric_manifest.json",
+  "phase": "phase6_corruption_metrics",
+  "stability_metrics": [
+    "prediction_stability",
+    "decision_stability",
+    "consensus_stability",
+    "trace_stability",
+    "run_to_run_agreement"
+  ],
+  "status": "pass",
+  "suite_hash": "87c98140d082c07e744e7f1374b8d8a5707ea7eea091fd84f5422426ab76c190",
+  "threshold_tuning_after_corruption_performed": false,
+  "trace_fields": [
+    "s",
+    "r",
+    "z",
+    "a",
+    "w",
+    "theta",
+    "R",
+    "hard_veto",
+    "decision",
+    "trace_hash"
+  ],
+  "training_performed": false,
+  "variance_metrics": [
+    "accuracy_variance",
+    "f1_variance",
+    "rejection_variance",
+    "threshold_variance",
+    "severity_variance",
+    "weight_variance"
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "report_id": "phase5_reproducibility_report",
+  "report_version": "phase5_report_v1",
+  "source_document_references": [
+    {
+      "document_id": "mavs_primary_bible",
+      "path": "C:\\Users\\Saif malik\\Downloads\\Mavs.pdf",
+      "role": "MAVS source context supplied by the user"
+    },
+    {
+      "document_id": "workplan",
+      "path": "WorkPlan.md",
+      "role": "Phase 5 implementation contract"
+    },
+    {
+      "document_id": "path_log",
+      "path": "Path.md",
+      "role": "Implementation and verification audit log"
+    }
+  ],
+  "input_paths": {
+    "foundation_manifest": "results/foundation_import/foundation_import_manifest.json",
+    "repetition_grid_manifest": "results/run_manifests/repetition_grid_manifest.json",
+    "locked_corpus_manifest": "results/execution_corpus/locked/corpus_manifest.json",
+    "audit_corpus_manifest": "results/execution_corpus/audit/corpus_manifest.json",
+    "variance_manifest": "results/variance_benchmarks/variance_dataset_manifest.json",
+    "metric_manifest": "results/stability_metrics/reproducibility_metric_manifest.json",
+    "locked_metric_rows": "results/stability_metrics/locked_metric_rows.csv",
+    "audit_metric_rows": "results/stability_metrics/audit_metric_rows.csv",
+    "accuracy_variance": "results/stability_metrics/accuracy_variance.csv",
+    "f1_variance": "results/stability_metrics/f1_variance.csv",
+    "prediction_stability": "results/stability_metrics/prediction_stability.csv",
+    "decision_stability": "results/stability_metrics/decision_stability.csv",
+    "consensus_stability": "results/stability_metrics/consensus_stability.csv",
+    "trace_stability": "results/stability_metrics/trace_stability.csv",
+    "run_to_run_agreement": "results/stability_metrics/run_to_run_agreement.csv",
+    "confidence_interval_widths": "results/stability_metrics/confidence_interval_widths.csv"
+  },
+  "output_paths": {
+    "report": "results/reports/reproducibility_report.md",
+    "variance_tables": "results/reports/variance_tables.csv",
+    "stability_tables": "results/reports/stability_tables.csv",
+    "reproducibility_system_deltas": "results/reports/reproducibility_system_deltas.csv",
+    "artifact_manifest": "results/reports/reproducibility_artifact_manifest.json"
+  },
+  "figure_paths": {
+    "accuracy_variance_by_system": "results/figures/accuracy_variance_by_system.png",
+    "f1_variance_by_system": "results/figures/f1_variance_by_system.png",
+    "prediction_stability_by_system": "results/figures/prediction_stability_by_system.png",
+    "decision_stability_by_system": "results/figures/decision_stability_by_system.png",
+    "consensus_stability_by_system": "results/figures/consensus_stability_by_system.png",
+    "trace_stability_by_system": "results/figures/trace_stability_by_system.png",
+    "confidence_interval_widths": "results/figures/confidence_interval_widths.png"
+  },
+  "expected": {
+    "datasets": [
+      "adult_income",
+      "bank_marketing",
+      "breast_cancer_wisconsin",
+      "credit_card_fraud"
+    ],
+    "systems": [
+      "mean_ensemble",
+      "pure_mavs_gc",
+      "single_model",
+      "static_weighted_ensemble",
+      "veto_mavs"
+    ],
+    "governance_systems": [
+      "pure_mavs_gc",
+      "veto_mavs"
+    ],
+    "baselines": [
+      "single_model",
+      "mean_ensemble",
+      "static_weighted_ensemble",
+      "veto_mavs"
+    ],
+    "specialist_compositions": [
+      "full_rf_gbt_mlp",
+      "gbt_mlp_pair",
+      "rf_gbt_pair",
+      "rf_mlp_pair"
+    ],
+    "run_modes": [
+      "locked",
+      "audit"
+    ],
+    "variance_metrics": [
+      "accuracy_variance",
+      "f1_variance"
+    ],
+    "stability_metrics": [
+      "prediction_stability",
+      "decision_stability",
+      "consensus_stability",
+      "trace_stability",
+      "run_to_run_agreement"
+    ],
+    "trace_fields": [
+      "s",
+      "r",
+      "z",
+      "a",
+      "w",
+      "m",
+      "theta",
+      "R",
+      "hard_veto",
+      "decision"
+    ],
+    "summary_aggregation_grain": "dataset_system_composition",
+    "baseline_summary_grain": "dataset_baseline_composition"
+  },
+  "analysis_rules": {
+    "require_multiple_dataset_and_baseline_support": true,
+    "compare_pure_mavs_separately_against_veto_mavs": true,
+    "describe_variance_accuracy_tradeoffs": true,
+    "state_wider_ci_or_lower_stability_plainly": true,
+    "preserve_positive_negative_mixed_outcomes": true,
+    "forbid_corruption_robustness_claims": true,
+    "forbid_global_superiority_claims": true,
+    "distinguish_locked_and_audit_evidence": true,
+    "identify_final_vs_exploratory_runs": true,
+    "require_artifact_reference_for_every_claim": true,
+    "fail_if_expected_rows_or_figures_missing": true
+  }
+}

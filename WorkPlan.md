@@ -799,7 +799,7 @@ tests/test_reproducibility_manifest_complete.py
 - Reduced variance with worse accuracy must be described as a tradeoff, not a universal improvement.
 - Wider confidence intervals or lower stability for MAVS-GC must be stated plainly.
 - Positive, negative, and mixed outcomes are all acceptable.
-- The report must not claim Chapter 10C evidence proves robustness under corruption; that belongs to Chapter 10B.
+- The Phase 5 clean-condition report must not claim Chapter 10C evidence proves robustness under corruption. Corruption-aware reproducibility is evaluated only in Phase 6.
 - The report must not claim universal superiority, cross-domain validity, or governance learning.
 
 ### Anti-Overfitting Controls
@@ -820,20 +820,337 @@ tests/test_reproducibility_manifest_complete.py
 - Every claim maps to tables, figures, or trace-derived metrics.
 - `Path.md` records report generation commands, artifact hashes, claim support, limitations, deviations, and compliance.
 
-## Phase 6 - Verification, Reproduction, and Release Readiness
+## Phase 6 - Corruption-Aware Reproducibility
+
+### Objective
+
+Determine whether MAVS-GC maintains reproducibility and stability under adverse conditions.
+
+This phase extends Chapter 10C beyond clean-condition reproducibility and evaluates whether governance-induced stability survives corruption.
+
+The objective is evidence, not validation.
+
+### Motivation
+
+The original Chapter 10C matrix evaluates reproducibility under repeated execution using different seeds, splits, initialization schedules, and specialist compositions.
+
+Chapter 10B demonstrated that MAVS-GC exhibits its most distinctive behavior under adverse conditions, especially corruption regimes such as specialist failure.
+
+Therefore, Chapter 10C must evaluate reproducibility under:
+
+- clean repeated execution conditions
+- controlled corruption conditions
+
+This phase investigates whether governance preserves stability and reproducibility when systems are exposed to stress.
+
+### Research Questions
+
+1. Does MAVS-GC reduce variance under corruption?
+2. Does MAVS-GC preserve prediction stability under corruption?
+3. Does MAVS-GC preserve decision stability under corruption?
+4. Does MAVS-GC preserve consensus stability under corruption?
+5. Does MAVS-GC preserve trace stability under corruption?
+6. Which corruption families destabilize MAVS-GC most?
+7. Which corruption families destabilize baseline systems most?
+8. Does MAVS-GC maintain stability by increasing rejection?
+9. Does specialist failure significantly affect reproducibility?
+10. Are governance-induced stability effects stronger under corruption than under clean conditions?
+
+### Scope
+
+Reuse the complete Chapter 10B corruption suite and apply it to the Chapter 10C repeated execution matrix.
+
+This phase must compare corruption-aware reproducibility against the clean Phase 5 evidence without retroactively changing clean-condition metrics or claims.
+
+Generate:
+
+- Corruption Reproducibility Report.
+- Corruption Stability Atlas.
+- Corruption Variance Atlas.
+- Corruption Trace Stability Report.
+- Claim Support Ledger.
+- Verification Report Addendum.
+
+### Corruption Families
+
+Reuse the complete Chapter 10B corruption suite:
+
+```text
+adversarial_confidence_inflation
+confidence_distortion
+distribution_shift
+feature_noise
+label_noise
+missing_features
+random_feature_deletion
+specialist_failure
+synthetic_sensor_failure
+```
+
+### Corruption Levels
+
+```text
+0.0
+0.05
+0.1
+0.2
+0.4
+0.6
+0.8
+1.0
+```
+
+The `0.0` corruption level is the clean anchor and must be tied back to the Phase 5 clean-condition evidence.
+
+### Experimental Matrix
+
+The corruption-aware reproducibility matrix is:
+
+```text
+Dataset
+x System
+x Seed
+x Split
+x Initialization Schedule
+x Specialist Composition
+x Corruption Family
+x Corruption Level
+```
+
+The matrix must preserve the locked and audit separation from earlier phases:
+
+- locked corruption evidence
+- audit corruption evidence
+
+Shadow verification may be used for defect discovery but must not be used as final evidence.
+
+### Files and Directories to Create
+
+```text
+configs/experiments/corruption_reproducibility.yaml
+configs/corruption/ch10b_corruption_suite.yaml
+src/mavs_ch10c/corruption/__init__.py
+src/mavs_ch10c/corruption/ch10b_suite.py
+src/mavs_ch10c/corruption/corruption_matrix.py
+src/mavs_ch10c/corruption/corruption_runner.py
+src/mavs_ch10c/corruption/corruption_writer.py
+src/mavs_ch10c/corruption/cache.py
+src/mavs_ch10c/corruption_metrics/__init__.py
+src/mavs_ch10c/corruption_metrics/variance.py
+src/mavs_ch10c/corruption_metrics/stability.py
+src/mavs_ch10c/corruption_metrics/confidence.py
+src/mavs_ch10c/corruption_metrics/trace.py
+src/mavs_ch10c/corruption_metrics/reporting.py
+src/mavs_ch10c/corruption_metrics/manifest.py
+scripts/build_corruption_reproducibility_corpus.py
+scripts/build_corruption_reproducibility_tables.py
+scripts/build_corruption_stability_figures.py
+scripts/build_corruption_reproducibility_report.py
+results/corruption_reproducibility/.gitkeep
+results/corruption_reproducibility/locked/.gitkeep
+results/corruption_reproducibility/audit/.gitkeep
+results/corruption_reproducibility/corruption_execution_manifest.json
+results/corruption_reproducibility/corruption_metric_manifest.json
+results/reports/corruption_reproducibility_tables.csv
+results/reports/corruption_stability_tables.csv
+results/reports/corruption_variance_tables.csv
+results/reports/corruption_trace_stability_tables.csv
+results/reports/corruption_claim_support_ledger.csv
+results/reports/corruption_reproducibility_report.md
+results/reports/corruption_verification_addendum.md
+results/figures/prediction_stability_by_corruption.png
+results/figures/decision_stability_by_corruption.png
+results/figures/consensus_stability_by_corruption.png
+results/figures/trace_stability_by_corruption.png
+results/figures/variance_by_corruption.png
+results/figures/confidence_interval_width_by_corruption.png
+tests/test_corruption_suite_import_contract.py
+tests/test_corruption_matrix_complete.py
+tests/test_corruption_inputs_identical_across_systems.py
+tests/test_corruption_metrics_complete.py
+tests/test_corruption_trace_stability_complete.py
+tests/test_corruption_report_claims_reference_artifacts.py
+tests/test_corruption_clean_anchor_matches_phase5.py
+tests/test_corruption_no_tuning_guard.py
+```
+
+### Code to Produce
+
+- Chapter 10B corruption-suite adapter:
+  - imports the exact corruption family definitions from Chapter 10B or a hashed local artifact copy
+  - records source commit and corruption config hashes
+  - fails closed if a corruption family is missing or hash-mismatched
+- Corruption matrix builder:
+  - expands dataset, system, seed, split schedule, initialization schedule, specialist composition, corruption family, corruption level, and run mode
+  - includes `0.0` clean-anchor rows
+  - preserves locked/audit separation
+- Corruption runner:
+  - applies corruption after training and calibration
+  - evaluates corrupted benchmark inputs only
+  - does not tune models, thresholds, or governance rules after observing corruption results
+  - records all corruption parameters and corrupted-input hashes
+- Corruption writer:
+  - stores corrupted predictions, probabilities, decisions, labels, rejection state, thresholds, severity values, specialist weights, governance traces, run manifests, and artifact hashes
+  - writes resumable cache records without changing completed artifact hashes
+- Corruption metric builders:
+  - compute variance metrics per corruption family and level
+  - compute stability metrics per corruption family and level
+  - compute confidence interval width and bootstrap confidence interval width
+  - compute clean-vs-corruption deltas relative to Phase 5
+- Corruption report generator:
+  - answers the ten corruption-aware research questions
+  - separates locked and audit evidence
+  - emits a claim support ledger
+  - records limitations, negative results, and caution tradeoffs
+
+### Required Metrics
+
+For every corruption family and corruption level compute:
+
+Variance metrics:
+
+- Accuracy Variance
+- F1 Variance
+- Rejection Variance
+- Threshold Variance
+- Severity Variance
+- Weight Variance
+
+Stability metrics:
+
+- Prediction Stability
+- Decision Stability
+- Consensus Stability
+- Trace Stability
+- Run-to-Run Agreement
+
+Confidence metrics:
+
+- Confidence Interval Width
+- Bootstrap Confidence Interval Width
+
+### Benchmarks Produced in This Phase
+
+- Locked corruption reproducibility corpus.
+- Audit corruption reproducibility corpus.
+- Corruption variance tables.
+- Corruption stability tables.
+- Corruption trace stability tables.
+- Corruption confidence interval tables.
+- Clean-vs-corruption delta tables.
+- Claim support ledger.
+
+### Interpretation Rules
+
+If MAVS-GC shows only small benefits under clean conditions but large benefits under corruption:
+
+```text
+MAVS-GC primarily functions as a governance architecture under adverse conditions rather than as a clean-condition reproducibility optimizer.
+```
+
+If MAVS-GC remains stable while baseline systems destabilize:
+
+```text
+Governance contributes to reproducibility under stress.
+```
+
+If MAVS-GC preserves stability only by increasing rejection:
+
+```text
+Stability is achieved through a caution tradeoff.
+```
+
+If no stability benefit appears under corruption:
+
+```text
+The reproducibility effect does not generalize to stress conditions.
+```
+
+These interpretations are conditional. The report must choose only interpretations supported by generated corruption artifacts.
+
+### Model Handling
+
+No new model-development search is allowed in this phase.
+
+Permitted:
+
+- reuse frozen Phase 2 trained specialists and predictions where corruption can be applied post-training
+- rerun specialists only under the already frozen Phase 2 repeated-execution protocol if corrupted benchmark artifacts require regeneration
+- apply Chapter 10B corruption transformations to benchmark inputs, specialist outputs, or traces according to the imported Chapter 10B corruption definitions
+
+Forbidden:
+
+- hyperparameter search
+- architecture search
+- corruption-level tuning
+- threshold tuning after corruption results are inspected
+- governance-policy modification
+- using audit corruption results to choose metrics, families, levels, or report templates
+
+### Brutal Independent Benchmark Requirement
+
+Every corruption-aware final claim must use corrupted locked or corrupted audit benchmark rows that remain disjoint from:
+
+- training rows
+- validation rows
+- calibration rows
+- clean locked benchmark rows when the claim is audit-only
+- exploratory corruption runs
+- smoke test runs
+
+The `0.0` corruption level is allowed only as a clean anchor and must be labeled as such.
+
+### Anti-Overfitting Controls
+
+- Corruption families and levels must be frozen before execution.
+- The Chapter 10B corruption suite hash must be stored before corrupted metrics are generated.
+- Locked corruption evidence must be generated before audit corruption evidence is inspected.
+- Audit corruption evidence must not select metrics, figures, or interpretation language.
+- Clean Phase 5 metrics must not be rewritten to improve corruption comparisons.
+- Negative, neutral, and mixed corruption outcomes must be preserved.
+- A stability gain accompanied by increased rejection must be described as a caution tradeoff.
+- All corruption report claims must reference generated corruption tables, figures, trace-derived metrics, or manifests.
+- Corruption report generation must fail if expected corruption families, levels, rows, figures, or trace fields are missing.
+
+### Phase 6 Acceptance Criteria
+
+- Complete Chapter 10B corruption family suite is imported or hash-verified.
+- Corruption matrix exists for every required dataset, system, locked/audit seed, split schedule, initialization schedule, specialist composition, corruption family, and corruption level.
+- Clean anchor rows exist at corruption level `0.0` and tie back to Phase 5 clean evidence.
+- Corruption reproducibility tables exist.
+- Corruption stability tables exist.
+- Corruption variance tables exist.
+- Corruption trace stability tables exist.
+- All six corruption figures exist.
+- Corruption reproducibility report answers all ten research questions.
+- Claim support ledger maps every corruption claim to tables, figures, trace metrics, or manifests.
+- Verification report addendum records corruption-suite hashes, matrix coverage, artifact hashes, missing units, limitations, and compliance.
+- Tests pass for corruption-suite import, matrix completeness, identical inputs across systems, metric completeness, trace stability, report claim references, clean-anchor consistency, and no-tuning guards.
+- `Path.md` records commands, row counts, run ids, corruption families, corruption levels, output paths, hashes, failed/retried runs, limitations, and workplan compliance.
+
+### Phase 6 Success Criterion
+
+Chapter 10C succeeds if it can answer:
+
+```text
+Does MAVS-GC preserve reproducibility and stability under adverse conditions, and if so, under which corruption families and through which governance behaviors?
+```
+
+## Phase 7 - Verification, Reproduction, and Release Readiness
 
 ### Scope
 
 Perform final end-to-end verification so the repository can serve as the Chapter 10C reproducibility artifact.
 
-This phase extends the Chapter 10B Phase 6 standard to Chapter 10C:
+This phase extends the Chapter 10B final verification standard to Chapter 10C and verifies both the clean Phase 5 evidence and the corruption-aware Phase 6 evidence:
 
 - Reproduce or validate the full pipeline.
 - Hash all required artifacts.
 - Verify matrix completeness.
 - Verify no MAVS-GC algorithm changes occurred.
 - Verify seed and split independence.
-- Verify metrics and report claims.
+- Verify clean metrics and report claims.
+- Verify corruption metrics and report claims.
 - Produce final verification report.
 
 ### Files and Directories to Create
@@ -844,12 +1161,15 @@ scripts/hash_artifacts.py
 scripts/verify_artifacts.py
 results/reports/artifact_inventory.json
 results/reports/verification_report.md
+results/reports/corruption_verification_addendum.md
 tests/test_end_to_end_smoke.py
 tests/test_artifact_inventory_complete.py
 tests/test_final_run_guards.py
 tests/test_locked_audit_independence.py
 tests/test_no_governance_source_drift.py
 tests/test_path_md_complete.py
+tests/test_final_corruption_artifacts_complete.py
+tests/test_final_corruption_claims_reference_artifacts.py
 ```
 
 ### Code to Produce
@@ -864,6 +1184,10 @@ tests/test_path_md_complete.py
   - build variance tables
   - build stability figures
   - build reproducibility report
+  - build corruption reproducibility corpus
+  - build corruption reproducibility tables
+  - build corruption stability figures
+  - build corruption reproducibility report
   - hash artifacts
   - verify artifacts
 - Artifact inventory:
@@ -880,6 +1204,10 @@ tests/test_path_md_complete.py
   - corpus indexes
   - variance datasets
   - metric tables
+  - corruption corpora
+  - corruption metric tables
+  - corruption figures
+  - corruption reports
   - figures
   - reports
   - `Path.md`
@@ -895,11 +1223,14 @@ tests/test_path_md_complete.py
   - all required metrics are present
   - governance traces contain required MAVS-GC fields
   - report claims reference artifacts
+  - corruption families and levels are complete
+  - corruption report claims reference artifacts
+  - clean-anchor corruption rows match Phase 5 clean evidence
   - `Path.md` records all phase evidence
 
 ### Model Handling
 
-Final verification may rerun smoke-sized model training for test coverage, but final reproducibility evidence must be generated only by the frozen final matrix. Verification must fail if final reports use smoke, exploratory, training, validation, or calibration metrics as evidence.
+Final verification may rerun smoke-sized model training for test coverage, but final clean and corruption reproducibility evidence must be generated only by the frozen final matrices. Verification must fail if final reports use smoke, exploratory, training, validation, calibration, or corruption-development metrics as evidence.
 
 ### Anti-Overfitting Controls
 
@@ -909,12 +1240,16 @@ Final verification may rerun smoke-sized model training for test coverage, but f
 - Final verification must fail if benchmark rows overlap training, validation, or calibration rows.
 - Final verification must fail if governance source hashes drift after Phase 1.
 - Final verification must fail if `Path.md` lacks final run ids, artifact hashes, or deviation records.
+- Final verification must fail if Chapter 10B corruption-suite hashes drift without an explicit recorded import update.
+- Final verification must fail if corruption report claims are unsupported by generated corruption artifacts.
+- Final verification must fail if Phase 6 clean-anchor rows do not match the Phase 5 clean-condition evidence within the declared tolerance.
 
-### Phase 6 Acceptance Criteria
+### Phase 7 Acceptance Criteria
 
 - `python scripts/reproduce_all.py --run-mode final` succeeds from a prepared checkout with access to required upstream artifacts.
 - Artifact inventory is complete.
 - Verification report has overall status `pass`.
+- Corruption verification addendum has overall status `pass`.
 - Test suite passes.
 - `Path.md` contains the complete implementation trail from source review through final verification.
 
@@ -966,11 +1301,27 @@ environment_hash
 prediction_hash
 ```
 
+Phase 6 corruption-aware trace and prediction records must additionally include:
+
+```text
+corruption_family
+corruption_level
+corruption_seed
+corruption_config_hash
+corrupted_input_hash
+corrupted_specialist_output_hash
+corruption_trace_hash
+clean_anchor_hash
+```
+
+For clean Phase 5 records these corruption fields may be absent. For Phase 6 records they are required, including level `0.0` clean-anchor records.
+
 Required trace tests:
 
 - All active specialists speak for every input.
 - Traces are deterministic for fixed inputs, configs, checkpoints, seeds, and environment.
-- Trace hash changes are explainable through model seed, split schedule, initialization schedule, or composition only.
+- Clean-condition trace hash changes are explainable through model seed, split schedule, initialization schedule, or composition only.
+- Corruption-condition trace hash changes are explainable through model seed, split schedule, initialization schedule, composition, corruption family, corruption level, or corruption seed only.
 - Governance thresholds and hard veto behavior match imported Chapter 10A semantics.
 - Trace fields align row-for-row with metric inputs.
 
@@ -1011,17 +1362,49 @@ audit
 shadow_verification
 ```
 
+Corruption families for Phase 6:
+
+```text
+adversarial_confidence_inflation
+confidence_distortion
+distribution_shift
+feature_noise
+label_noise
+missing_features
+random_feature_deletion
+specialist_failure
+synthetic_sensor_failure
+```
+
+Corruption levels for Phase 6:
+
+```text
+0.0
+0.05
+0.1
+0.2
+0.4
+0.6
+0.8
+1.0
+```
+
 Metrics:
 
 ```text
 accuracy_variance
 f1_variance
+rejection_variance
+threshold_variance
+severity_variance
+weight_variance
 prediction_stability
 decision_stability
 consensus_stability
 trace_stability
 run_to_run_agreement
 confidence_interval_width
+bootstrap_confidence_interval_width
 ```
 
 ## Path.md Documentation Contract
@@ -1045,4 +1428,3 @@ confidence_interval_width
 - next required action
 
 No phase is complete until `Path.md` contains enough evidence to verify that phase against this workplan.
-

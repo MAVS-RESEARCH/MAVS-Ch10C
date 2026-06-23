@@ -1,0 +1,160 @@
+{
+  "audit_used_to_select_metrics_or_language": false,
+  "ch10b_grid_manifest_payload_hash": "2e18454a30dc9c83b9c74af3bf432b93ea6434a88205b107238447f2677f0523",
+  "clean_anchor_level": 0.0,
+  "corruption_application_mode": "deterministic_projection_over_frozen_phase2_benchmark_outputs",
+  "corruption_execution_manifest_hash": "330b54ed7c885c1c6c6f548254ee96f66d1e44f80e17efbdc712b966b59b51b9",
+  "corruption_families": [
+    "adversarial_confidence_inflation",
+    "confidence_distortion",
+    "distribution_shift",
+    "feature_noise",
+    "label_noise",
+    "missing_features",
+    "random_feature_deletion",
+    "specialist_failure",
+    "synthetic_sensor_failure"
+  ],
+  "corruption_levels": [
+    0.0,
+    0.05,
+    0.1,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1.0
+  ],
+  "family_config_hashes": {
+    "adversarial_confidence_inflation": "1d24d7492d568163431d0eef70ed54f368f48eea70aa36e3d76c2e33740b6528",
+    "confidence_distortion": "d7ff39d9b9a0d3f263508c1f242ea6d31a654001bc6e3fe8ba5e66e06343bf32",
+    "distribution_shift": "cb5d9d60cc04acfcce0cb03a5a4c19680464e5e66bd3e59c51859066c24b4d3d",
+    "feature_noise": "afbad1d4fd801dd833e54f33aaf104ce5c75c2e4fabd012ed5320372f9c2bfa5",
+    "label_noise": "289c3cb6dfd1e2cba00ff44fefef5f410f8d5b97793726b5728ffa066dc2dfe0",
+    "missing_features": "b9b089e0eb399c7b9112d0595d9be5492efc08ac13325f990f995a246d8c3022",
+    "random_feature_deletion": "3d34b5163edbc1e635d9704f943f85141e5986255f76d17aa1fc9ff084a2788d",
+    "specialist_failure": "8cf8dcf98116c9645779379597beea962fb3de6ef47e18cb5b952ee72b42f7be",
+    "synthetic_sensor_failure": "5bbe8e7a7cd5f5d89fcc7b91aa8c222f9746b5f689b30e0710cf86bb4549e0f0"
+  },
+  "governance_policy_modified": false,
+  "hyperparameter_search_performed": false,
+  "locked_audit_separation_preserved": true,
+  "matrix_manifest": {
+    "clean_anchor_level": 0.0,
+    "corruption_families": [
+      "adversarial_confidence_inflation",
+      "confidence_distortion",
+      "distribution_shift",
+      "feature_noise",
+      "label_noise",
+      "missing_features",
+      "random_feature_deletion",
+      "specialist_failure",
+      "synthetic_sensor_failure"
+    ],
+    "corruption_levels": [
+      0.0,
+      0.05,
+      0.1,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1.0
+    ],
+    "corruption_matrix_hash": "a0d838eaee64e1ea4192df198626f289bc0a14b99b61625a575fa75090c8545c",
+    "datasets": [
+      "breast_cancer_wisconsin",
+      "adult_income",
+      "credit_card_fraud",
+      "bank_marketing"
+    ],
+    "expected_expanded_run_rows": 3628800,
+    "locked_audit_separation_preserved": true,
+    "matrix_grain": [
+      "run_mode",
+      "dataset_id",
+      "system_id",
+      "specialist_composition_id",
+      "corruption_family",
+      "corruption_level"
+    ],
+    "phase": "phase6_corruption_matrix",
+    "run_modes": [
+      "locked",
+      "audit"
+    ],
+    "run_modes_detail": {
+      "audit": {
+        "coverage": {
+          "dataset_count": 4,
+          "execution_seed_count": 20,
+          "initialization_schedule_count": 3,
+          "source_rows": 14400,
+          "source_rows_per_dataset_system_composition": 180,
+          "specialist_composition_count": 4,
+          "split_schedule_count": 3,
+          "system_count": 5
+        },
+        "expected_corruption_rows": 1036800,
+        "missing_units": [],
+        "source_path": "C:\\Users\\Saif malik\\MAVS-Ch-10C\\results\\execution_corpus\\audit\\corpus_index.csv",
+        "source_run_rows": 14400,
+        "source_sha256": "79ef1f0a67d9a1dbd75d5f74160c276c0142a2628aafe4d401d0fd5aea00b8f3"
+      },
+      "locked": {
+        "coverage": {
+          "dataset_count": 4,
+          "execution_seed_count": 30,
+          "initialization_schedule_count": 3,
+          "source_rows": 36000,
+          "source_rows_per_dataset_system_composition": 450,
+          "specialist_composition_count": 4,
+          "split_schedule_count": 5,
+          "system_count": 5
+        },
+        "expected_corruption_rows": 2592000,
+        "missing_units": [],
+        "source_path": "C:\\Users\\Saif malik\\MAVS-Ch-10C\\results\\execution_corpus\\locked\\corpus_index.csv",
+        "source_run_rows": 36000,
+        "source_sha256": "0be0f071fc20ac78dcb9f9d1fe7586b96b2e08e1dc5241cc2cb8aed9243e47a5"
+      }
+    },
+    "shadow_verification_used_as_final_evidence": false,
+    "source_run_rows": 50400,
+    "specialist_compositions": [
+      "full_rf_gbt_mlp",
+      "rf_gbt_pair",
+      "rf_mlp_pair",
+      "gbt_mlp_pair"
+    ],
+    "status": "pass",
+    "suite_hash": "87c98140d082c07e744e7f1374b8d8a5707ea7eea091fd84f5422426ab76c190",
+    "systems": [
+      "single_model",
+      "mean_ensemble",
+      "static_weighted_ensemble",
+      "veto_mavs",
+      "pure_mavs_gc"
+    ]
+  },
+  "phase": "phase6_corruption_aware_reproducibility",
+  "source_corpus_hashes": {
+    "audit": "79ef1f0a67d9a1dbd75d5f74160c276c0142a2628aafe4d401d0fd5aea00b8f3",
+    "locked": "0be0f071fc20ac78dcb9f9d1fe7586b96b2e08e1dc5241cc2cb8aed9243e47a5"
+  },
+  "source_prediction_hashes": {
+    "audit": "fed2ba87272924922e662cf2c20e4d7d3ebd7beb3e3dbd1d0a7036476524167a",
+    "locked": "8a449acb962a415898e1226b0030071f19567b82d9f20abb3ff9e5c744959a22"
+  },
+  "source_trace_hashes": {
+    "audit": "ec32048ff90632ac65cb60de0076734f1f4a46c4f561ce00d6a744173302aed7",
+    "locked": "d0101abc1cad7b7157a0907dbbabfe2631f2df72e50309c691dcac46bcb621cc"
+  },
+  "status": "pass",
+  "suite_hash": "87c98140d082c07e744e7f1374b8d8a5707ea7eea091fd84f5422426ab76c190",
+  "summary_row_count": 11520,
+  "threshold_tuning_after_corruption_performed": false,
+  "trace_summary_row_count": 46080,
+  "training_performed": false
+}

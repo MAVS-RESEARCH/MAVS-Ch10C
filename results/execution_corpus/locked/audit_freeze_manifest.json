@@ -1,5 +1,5 @@
 {
-  "audit_freeze_manifest_hash": "f024966d302e40597580d621508cee3d7772b19d6a3536e75985766c2ca8fa93",
+  "audit_freeze_manifest_hash": "9c4cca19c13f3942e396075222442e1a9ccdeaef603e659ef1c419f9a9e3bd49",
   "experiment_config_hashes": {
     "audit": "17c1e1457475d9c7dd92c2f0110f9106e3d76d7adde064d49197025f887afe3e",
     "locked": "d0ea42c20ff7268003cb4b86a3cff51fce9a36c582c271096c8ec65accc53823"
@@ -27,7 +27,7 @@
   "phase": "phase2_audit_release_gate",
   "report_template_hashes": {
     "README.md": "3d9b8921991fde67cac89648a3587e4a682935c7c85076ca4673c60c6c371085",
-    "WorkPlan.md": "07a8bff2fa9e2b937d345c4bdf0a9907231b24f140b24e3f9dfbd0de57ffaae3"
+    "WorkPlan.md": "d52692f189a9039da1e3116cad50ac1aade84121db00a4927955ed519de9bdaf"
   },
   "report_templates_frozen": true,
   "status": "pass"

@@ -1,0 +1,178 @@
+{
+  "analysis_rules": {
+    "compare_pure_mavs_separately_against_veto_mavs": true,
+    "describe_variance_accuracy_tradeoffs": true,
+    "distinguish_locked_and_audit_evidence": true,
+    "fail_if_expected_rows_or_figures_missing": true,
+    "forbid_corruption_robustness_claims": true,
+    "forbid_global_superiority_claims": true,
+    "identify_final_vs_exploratory_runs": true,
+    "preserve_positive_negative_mixed_outcomes": true,
+    "require_artifact_reference_for_every_claim": true,
+    "require_multiple_dataset_and_baseline_support": true,
+    "state_wider_ci_or_lower_stability_plainly": true
+  },
+  "composition_hashes": {
+    "local_specialist_composition_config": "b21537886203cab4306c6ea988a9560e7328dadb39ba27e0242e6c099d65661c"
+  },
+  "config_hash": "bdafa4a2073841886a73f1314f4895d112a8356d068e57e377c8bef18b8bc20b",
+  "corpus_hashes": {
+    "audit_corpus_artifacts": {
+      "corpus_index": "79ef1f0a67d9a1dbd75d5f74160c276c0142a2628aafe4d401d0fd5aea00b8f3",
+      "frozen_run_manifests": "b1b928aaf93dd2831cfd3888e8d533257aa601c0e20d459294cc2c0e38057866",
+      "predictions_index": "fed2ba87272924922e662cf2c20e4d7d3ebd7beb3e3dbd1d0a7036476524167a",
+      "run_manifests": "f957ff49f421390c7cd794ca312c4295bbd66d77bde47ae529f37ba850d1e4c6",
+      "specialist_metadata": "10ee9e5bf1ec9cd8dae3b6bd4e6ac1fb23d8db8bbc7ba06b7471a1c6b3a9eb26",
+      "trace_index": "ec32048ff90632ac65cb60de0076734f1f4a46c4f561ce00d6a744173302aed7"
+    },
+    "audit_corpus_manifest_hash": "65963cf55087e6ee510daa1fb49d40188639ee71cc11870902c058d343985d4f",
+    "locked_corpus_artifacts": {
+      "corpus_index": "0be0f071fc20ac78dcb9f9d1fe7586b96b2e08e1dc5241cc2cb8aed9243e47a5",
+      "frozen_run_manifests": "150056c7e55e89baa6e0849914cd95c657aadaf13eb88292620e78dafa718a1e",
+      "predictions_index": "8a449acb962a415898e1226b0030071f19567b82d9f20abb3ff9e5c744959a22",
+      "run_manifests": "7b25c10dc49252690db6c623c65fed6df4f99041666d7de17bea0e9a10190617",
+      "specialist_metadata": "671a242dbbd1370c2e2c8429a7e8ecb9ee6135feb58bf42d03b247345796ca4b",
+      "trace_index": "d0101abc1cad7b7157a0907dbbabfe2631f2df72e50309c691dcac46bcb621cc"
+    },
+    "locked_corpus_manifest_hash": "a2fd4913c121e4823e01b1bec8e9ac09cd18ea03c538802c7225e6242ea0b686",
+    "repetition_grid_manifest_hash": "0cc00104a5e53ea96582e3a449f6f86e5007c57cab8ed99569791f319bef10f7"
+  },
+  "dataset_hashes": {
+    "configs/datasets/adult_income.yaml": "df7d43f3368932124c5075077a45e2d3891db4e19c891023c925138b54f4f5e9",
+    "configs/datasets/bank_marketing.yaml": "6a7b911b73f3f1516465e4397326b71fb956f79aee136c4a93fa2eb9887f0e9a",
+    "configs/datasets/breast_cancer_wisconsin.yaml": "3d30f3dcc567a3a91be2fcc522b09a826776f34194cbfc7c799b4151753f4b34",
+    "configs/datasets/credit_card_fraud.yaml": "a7e4c7b86644a3b4339c2fc00a6a153eecd0aecc3a8e9880f5b8038b6529294b"
+  },
+  "figure_hashes": {
+    "accuracy_variance_by_system": "94ccd85215ef179038fa1acb3e75c71f8ee0b9f8ef5b5dfe9e8064218050f4f5",
+    "confidence_interval_widths": "fb417e749c9d65ef0873749edd38ad17b039ed93fb461e5c50add8152825a712",
+    "consensus_stability_by_system": "2f5636202b3996ab0b6543d42c63267176023ab02ac2c007541948e7a055e528",
+    "decision_stability_by_system": "1554f58246165bdb45daef2b7ff277dd2d415efac66ddd77757fc28aca384774",
+    "f1_variance_by_system": "cfa0d93258233de2b21bb13e7a6f284a5322aaaf179599be4927d30ea44f0b2a",
+    "prediction_stability_by_system": "0a809d7c266dcf3b9bb32b0fcd8a2f57cb1867cad83ac6e6363fba87a0d2e7f7",
+    "trace_stability_by_system": "6670b31035da384ec8ea4fadb3f460746128cd655231a956a35cbc7a4b8bd01e"
+  },
+  "final_run_classification": {
+    "audit": "final_independent_audit_repeated_execution",
+    "exploratory_results_used": false,
+    "locked": "final_frozen_repeated_execution",
+    "training_diagnostics_used_as_final_evidence": false
+  },
+  "governance_source_hashes": {
+    "src/mavs_ch10a/governance/diagnostics.py": "312384c19133ee6c07ae8d26dfa888d8d51fe8cad22ae6749b88e8f772772551",
+    "src/mavs_ch10a/governance/organs.py": "3f5c057e6709a74d7cdff4f5a0a7e5d33091ca821f8851cd1c7b9053d4a96efc",
+    "src/mavs_ch10a/governance/policy.py": "3848743d5484bcdf6475713fa11b50e540e0c774b604e87113c44daa3a563333",
+    "src/mavs_ch10a/governance/rebalancer.py": "3028fb0e1b65137febc38949e85a16416d896ac26a80dcad9e999a49e3000c9b",
+    "src/mavs_ch10a/governance/severity.py": "438a3bd114041495cf3ebafd3c4698c1f5296bad5e34c0298f3f2d24f5cbf9ce",
+    "src/mavs_ch10a/governance/trace.py": "1b4acec780b04b4cdf88fb0b080530b7a1c62d3bc18d053f43f87fc555957c3c"
+  },
+  "import_source_commits": {
+    "ch10a": "3f8ce15dac24eaefcd1379279c30f1ded5be9a0b",
+    "ch10b": "6411af5b029de4216a5506beabd3ddf7182df4d9"
+  },
+  "initialization_schedule_hashes": {
+    "local_initialization_schedule_config": "524d56c89615c86045cc2c47f182698217a7db506cb7387490b73fa6b5783762"
+  },
+  "local_protocol_hashes": {
+    "configs/experiments/audit_repetition_corpus.yaml": "17c1e1457475d9c7dd92c2f0110f9106e3d76d7adde064d49197025f887afe3e",
+    "configs/experiments/ch10c_reproducibility.yaml": "45a126b6969f21d7a755ae6bbbd859b52e38ffa20c7791ce336cc26b4a0b8248",
+    "configs/experiments/locked_repetition_corpus.yaml": "d0ea42c20ff7268003cb4b86a3cff51fce9a36c582c271096c8ec65accc53823",
+    "configs/experiments/reproducibility_metrics.yaml": "4f7e248f0c05ff6b319a8425c2f974e49b5b1e4e0d6dc84b16febb3bfd29af07",
+    "configs/reproducibility/init_schedules.yaml": "524d56c89615c86045cc2c47f182698217a7db506cb7387490b73fa6b5783762",
+    "configs/reproducibility/repetition_grid.yaml": "06e342a87acf693cbac0e38685b7ceef138247d81fabc73b29e648e257cb11f9",
+    "configs/reproducibility/seed_registry.yaml": "4f89bcb8e441b6ae435c40692b5a5d16b6ac4e546f9a574592ccc0416534038d",
+    "configs/reproducibility/specialist_compositions.yaml": "b21537886203cab4306c6ea988a9560e7328dadb39ba27e0242e6c099d65661c",
+    "configs/reproducibility/split_schedules.yaml": "5b2dbfee5349f31b533cd5b42c0a425a4867273a7f0329be6f7d8e0fc58ca0ef"
+  },
+  "metric_table_hashes": {
+    "artifact_hashes": {
+      "accuracy_variance": "909fd502bff636e47afdf226e9078657dbe8e563586ae09abf171f974e487462",
+      "audit_metric_rows": "06ac4f4dbfd5d75eb69666861efa602da9f7ea6c0c3aef49fad8520c68fd4af4",
+      "confidence_interval_widths": "585bd5afc52a55c44dc0f65ab015ab8767178aa3ee5edfdb6d5f687b49b09d7d",
+      "consensus_stability": "b6f9e478121e06a17557425acee3e98fc1c245d399c3e4ef523364e46b62d3cb",
+      "decision_stability": "180414a8e1837bf877d54529ad754c8d00623b52637f48aa1cfd7a4393a8c2b0",
+      "f1_variance": "bcb3a565ab78cb63d57fa29e3872ba4535ea472985ae623d773a4975a818fd39",
+      "locked_metric_rows": "27c79f78d82e01dac90036fe4b7265b149f9a7c521e6493cbb2191a73d73a397",
+      "prediction_stability": "425fb250c2d0f16e61698b6dad542137941bfb3f6bedfebcd61667ff7d8e8c0e",
+      "run_to_run_agreement": "aac41426009b711146e19bdd2b35fd5abcbc19ebac1c9463b7b13af5c0f13392",
+      "trace_stability": "dc76747ebf397942afb58a9e1ab164fbf3dd5ef825776c6a44b4dd268e53c404"
+    },
+    "reproducibility_metric_manifest_hash": "2c6ffec8b4febe7c1f0fa31740b37c7684fc23ca288502fea68693b81c486645"
+  },
+  "model_config_hashes": {
+    "configs/models/gradient_boosted_trees.yaml": "f61040e8113f3daad60f940f0f97d7d70c794b5a71c61b6b60d1f06e5308fa8a",
+    "configs/models/mlp.yaml": "f669b60efd586eb884742c8e519fd1545c6f71b76fe005198760e023bc7523c3",
+    "configs/models/random_forest.yaml": "79849f94d5d0409b87e530860eae5c80dbbb2d8c39bf38610ff86cf9c813040d"
+  },
+  "phase": "phase5_reproducibility_report",
+  "report_claim_policy": {
+    "corruption_robustness_claim_made": false,
+    "every_claim_references_artifacts": true,
+    "global_superiority_claim_made": false,
+    "negative_neutral_mixed_results_preserved": true
+  },
+  "report_hash": "a60e3099d6f5d67a64ca6a81cac3e92bef2ad3264c895b90b05941ba959caece",
+  "report_table_hashes": {
+    "reproducibility_system_deltas": "8a540379f1551edaf4c4dc5744cd6a88230568af42ecb81b284186d53dc89418",
+    "stability_tables": "7bb1cfa5b644c8eba5844dd6370109b0e880a62f0c9e0a03f5bd18c2b3351347",
+    "variance_tables": "63c3f48f2efee55af5f0cb1a063f1a92b04c658b0828888ae3548fd52c8b8e22"
+  },
+  "report_version": "phase5_report_v1",
+  "reporting_code_hashes": {
+    "configs/reports/reproducibility_report.yaml": "bdafa4a2073841886a73f1314f4895d112a8356d068e57e377c8bef18b8bc20b",
+    "scripts/build_reproducibility_manifest.py": "81b9aad492f12c3399b374f25806c29dc2e365b014a54166916d51b36e9b745d",
+    "scripts/build_reproducibility_report.py": "363666fdaec803af7062558d25b0f7a8a0740ffd0c90ab95e2af85cac6444556",
+    "scripts/build_stability_figures.py": "bbfa6583351a9d5e601ad90ba40a83dca3201824cbccbc40715f274d83be8fd6",
+    "scripts/build_variance_tables.py": "f6ebe3cc156a59117b0a14dec635e8de098e9b685260769e1e291c0756de4feb",
+    "src/mavs_ch10c/reporting/__init__.py": "5237c2a4f8c7e466ef15fdaccb045292e0c1d50ebfd6fd8395158192a49663ab",
+    "src/mavs_ch10c/reporting/artifact_manifest.py": "e51e3e1dcfd07f60facec81e2770635be07484f5f53a6e2cbc4b35ebab6709a7",
+    "src/mavs_ch10c/reporting/figures.py": "c0918c0dc4a7ba869e3bb59fe9a950e0d58c3c0e30e49971c647da679b7dcb30",
+    "src/mavs_ch10c/reporting/reproducibility_report.py": "5945515222cb454e591e90c086fbfc8a02ec688c1b806dbb89413eaa5c37bf87",
+    "src/mavs_ch10c/reporting/tables.py": "00014733189acffc42c80aa3ffe9fdb87b50bb3bc5788fb8a30cef8dbab71949"
+  },
+  "reproducibility_artifact_manifest_hash": "3ef7ca9b7765e6387f4dc0d10317bd40371bd2be87f6efeae8d8a496909d700a",
+  "seed_registry_hashes": {
+    "audit_corpus_seed_registry": "d15597f036cc7aa9c69af18e515019107c2df53890126725ec1005b38c89adb9",
+    "local_seed_registry_config": "4f89bcb8e441b6ae435c40692b5a5d16b6ac4e546f9a574592ccc0416534038d",
+    "locked_corpus_seed_registry": "d15597f036cc7aa9c69af18e515019107c2df53890126725ec1005b38c89adb9"
+  },
+  "source_document_references": [
+    {
+      "document_id": "mavs_primary_bible",
+      "path": "C:\\Users\\Saif malik\\Downloads\\Mavs.pdf",
+      "role": "MAVS source context supplied by the user"
+    },
+    {
+      "document_id": "workplan",
+      "path": "WorkPlan.md",
+      "role": "Phase 5 implementation contract"
+    },
+    {
+      "document_id": "path_log",
+      "path": "Path.md",
+      "role": "Implementation and verification audit log"
+    }
+  ],
+  "split_schedule_hashes": {
+    "imported_ch10a_split_protocol": "f50de5eef776d3bee7e25cac4f1b5a670c18f8bd229b788ac3e720cf207e4744",
+    "local_split_schedule_config": "5b2dbfee5349f31b533cd5b42c0a425a4867273a7f0329be6f7d8e0fc58ca0ef"
+  },
+  "status": "pass",
+  "system_config_hashes": {
+    "configs/systems/mean_ensemble.yaml": "cc3c135dcde169a3d10ff96c32142423cd1558dd1a89ff572435aa0b8531069e",
+    "configs/systems/pure_mavs_gc.yaml": "7b6b32d617263283eb532f55b2e6eb969b396de73327e7ea40d38d3ce1a65516",
+    "configs/systems/single_model.yaml": "9f63cacbac88b5aff627cae8a050b29a52df680ee56317b489f7b1d55c84c67e",
+    "configs/systems/static_weighted_ensemble.yaml": "4a4eef566424a962b7ee06c0cc221afeafc50c01eac7bce729d789e73aeef842",
+    "configs/systems/veto_mavs.yaml": "069b7abc39f476bc9b8453c537f458d2cf3ded1293f3b3616a37211d6b7fc046"
+  },
+  "variance_dataset_hashes": {
+    "artifact_hashes": {
+      "audit_corpus_manifest": "65963cf55087e6ee510daa1fb49d40188639ee71cc11870902c058d343985d4f",
+      "audit_variance_rows": "19c83733ffa208c2a02b080c9df9bc518dedd1127de27922f0794ac0ac69802f",
+      "locked_corpus_manifest": "a2fd4913c121e4823e01b1bec8e9ac09cd18ea03c538802c7225e6242ea0b686",
+      "locked_variance_rows": "6ca5e5a1bba8872e2187c4df698ceed711cf825c72f83cb0b3c6022359aa5270",
+      "system_delta_rows": "28aaf74f9f8c681b9d8595678b813349a4d7b134f6dc2402ecc070fb393e8ec0"
+    },
+    "variance_dataset_manifest_hash": "12b30b5f246432946e717a9de4740de8f761906027d94b10c0afb32fd395d5cb"
+  }
+}

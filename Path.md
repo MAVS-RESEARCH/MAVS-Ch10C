@@ -979,7 +979,7 @@ Scripts:
 
 ### WorkPlan Compliance
 
-Phase 2 follows the structural Phase 2 contract:
+Historical scaffold status, superseded by the empirical reimplementation section below:
 
 - Locked corpus exists for all required datasets, systems, seeds, split schedules, initialization schedules, and specialist compositions.
 - Audit corpus exists with independent seeds and split schedules.
@@ -989,21 +989,21 @@ Phase 2 follows the structural Phase 2 contract:
 - Training, calibration, locked benchmark, and audit benchmark isolation tests pass.
 - No tuning is allowed by config or code.
 
-### Deviations
+### Historical Deviations Superseded
 
-Important limitation:
+Superseded limitation:
 
 - This implementation generated a deterministic manifest-backed corpus and specialist fit metadata. It did not execute empirical sklearn retraining for all 22,680 specialist fits. The code records the planned repeated fit artifacts using frozen Chapter 10A model config hashes and partition hashes. Therefore, the current Phase 2 artifact is suitable as the execution manifest/corpus-index layer for Phase 3 plumbing, but it is not yet publication-grade empirical repeated-training evidence.
 
 The deviation is intentionally recorded here because `WorkPlan.md` says Phase 2 intentionally retrains specialists. Full empirical retraining remains a required future backend before any scientific Chapter 10C conclusion is drawn.
 
-### Risks and Limitations
+### Historical Risks and Limitations Superseded
 
 - Final corpus mode is intentionally blocked until the worktree is clean; the guard was tested and failed as expected.
 - The generated corpus CSV/JSONL artifacts are large and ignored by Git. Their tracked audit handles are the corpus manifests and artifact hashes.
 - The deterministic metadata backend prevents accidental tuning while the orchestration layer is being built, but it must not be presented as measured model performance.
 
-### Next Required Action
+### Historical Next Required Action Superseded
 
 Before using Phase 2 for final scientific conclusions:
 
@@ -1021,7 +1021,7 @@ Implemented Phase 3 of `WorkPlan.md`: governance comparison and variance benchma
 
 This phase consumes Phase 2 only. It does not train models, modify checkpoints, change system configs, or alter governance configs.
 
-Because Phase 2 currently produced a manifest-backed corpus rather than empirical row-level predictions, Phase 3 builds hash-backed aligned system-level variance rows. The implementation preserves alignment, coverage, trace provenance, and Pure MAVS-GC baseline comparison rows, but numeric metric deltas remain deferred until empirical prediction metrics exist.
+Historical scaffold note, superseded by the empirical reimplementation section below: the first Phase 3 implementation consumed the initial manifest-backed Phase 2 corpus and emitted hash-backed aligned system-level rows. The current committed implementation no longer depends on that limitation; it consumes empirical repeated-training predictions and emits row-level benchmark evidence.
 
 ### Files Created or Changed
 
@@ -1298,7 +1298,7 @@ Script:
 
 ### WorkPlan Compliance
 
-Phase 3 follows the structural Phase 3 contract:
+Historical scaffold status, superseded by the empirical reimplementation section below:
 
 - Variance benchmark datasets exist for locked and audit modes.
 - Required dataset/system/repetition/composition combinations are represented.
@@ -1308,9 +1308,9 @@ Phase 3 follows the structural Phase 3 contract:
 - Locked and audit outputs remain separately labeled.
 - Phase 3 did not modify model checkpoints, system configs, governance configs, or corpus outputs.
 
-### Deviations
+### Historical Deviations Superseded
 
-Inherited limitation from Phase 2:
+Superseded inherited limitation from Phase 2:
 
 - Phase 3 emits hash-backed system-level variance rows rather than empirical row-level decision rows. The `row_id` field is therefore `system_level:<specialist_output_hash>` instead of a real benchmark example id.
 - Numeric probability, confidence, correctness, F1, rejection, and acceptance values are represented by deterministic hashes, not measured metric values.
@@ -1318,7 +1318,7 @@ Inherited limitation from Phase 2:
 
 This is acceptable for pipeline alignment and artifact integrity, but it is not final scientific variance evidence.
 
-### Risks and Limitations
+### Historical Risks and Limitations Superseded
 
 - The Phase 3 CSV artifacts are large:
   - locked variance rows: approximately 35 MB
@@ -1327,7 +1327,7 @@ This is acceptable for pipeline alignment and artifact integrity, but it is not 
 - The artifacts are structurally complete but inherit the Phase 2 manifest-backed limitation.
 - Phase 4 can use these files for metric pipeline development only until empirical prediction values are produced.
 
-### Next Required Action
+### Historical Next Required Action Superseded
 
 Before final Chapter 10C conclusions:
 
@@ -2218,3 +2218,524 @@ Phase 4 requirements implemented:
 Compliance status:
 
 - Phase 4: implemented in accordance with `WorkPlan.md`.
+
+## 2026-06-23 - Phase 5 - Analysis, Variance Tables, Stability Figures, and Reproducibility Report
+
+### Path.md Historical-Note Fix
+
+The earlier Phase 2 and Phase 3 scaffold limitation sections were relabeled as superseded historical audit notes. They now state that the empirical reimplementation and compliance addenda are the current implementation state. This prevents the old scaffold limitations from being read as current Phase 2/3 status.
+
+### Scope Implemented
+
+Implemented Phase 5 of `WorkPlan.md`: analysis, variance tables, stability figures, reproducibility report, and reproducibility artifact manifest.
+
+Phase 5 consumes only frozen Phase 4 metric artifacts. No model training, hyperparameter tuning, governance modification, or train/validation/calibration diagnostic evidence is used in this phase.
+
+### Files Created or Changed
+
+Created:
+
+- `configs/reports/reproducibility_report.yaml`
+- `src/mavs_ch10c/reporting/__init__.py`
+- `src/mavs_ch10c/reporting/tables.py`
+- `src/mavs_ch10c/reporting/figures.py`
+- `src/mavs_ch10c/reporting/reproducibility_report.py`
+- `src/mavs_ch10c/reporting/artifact_manifest.py`
+- `scripts/build_variance_tables.py`
+- `scripts/build_stability_figures.py`
+- `scripts/build_reproducibility_report.py`
+- `scripts/build_reproducibility_manifest.py`
+- `tests/test_report_inputs_complete.py`
+- `tests/test_report_claims_reference_artifacts.py`
+- `tests/test_variance_tables_complete.py`
+- `tests/test_stability_figures_exist.py`
+- `tests/test_reproducibility_manifest_complete.py`
+- `results/reports/reproducibility_report.md`
+- `results/reports/variance_tables.csv`
+- `results/reports/stability_tables.csv`
+- `results/reports/reproducibility_system_deltas.csv`
+- `results/reports/reproducibility_artifact_manifest.json`
+- `results/figures/accuracy_variance_by_system.png`
+- `results/figures/f1_variance_by_system.png`
+- `results/figures/prediction_stability_by_system.png`
+- `results/figures/decision_stability_by_system.png`
+- `results/figures/consensus_stability_by_system.png`
+- `results/figures/trace_stability_by_system.png`
+- `results/figures/confidence_interval_widths.png`
+
+Changed:
+
+- `pyproject.toml`: added `matplotlib>=3.8` because Phase 5 requires PNG figures.
+- `Path.md`: relabeled superseded Phase 2/3 scaffold notes and added this Phase 5 implementation record.
+
+### Code Produced
+
+Table builders:
+
+- `src/mavs_ch10c/reporting/tables.py` builds `variance_tables.csv`, `stability_tables.csv`, and `reproducibility_system_deltas.csv`.
+- Variance rows are emitted at the required dataset x system x specialist composition x run mode x metric grain.
+- Stability rows include prediction stability, decision stability, consensus/score stability, trace stability, and run-to-run agreement.
+- Pure MAVS-GC deltas are emitted against Single Model, Mean Ensemble, Static Weighted Ensemble, and Veto MAVS.
+- Locked and audit evidence remain separate in every table.
+
+Figure builders:
+
+- `src/mavs_ch10c/reporting/figures.py` renders all seven required PNG figures using deterministic table inputs.
+- Figure generation fails if a plotted metric has no numeric evidence.
+
+Report generator:
+
+- `src/mavs_ch10c/reporting/reproducibility_report.py` writes `results/reports/reproducibility_report.md`.
+- The report includes source authority, methodology, imported Chapter 10A/10B foundation, frozen governance policy, repeated execution matrix, independent benchmark design, anti-overfitting controls, results, limitations, claim register, and final answer.
+
+Artifact manifest:
+
+- `src/mavs_ch10c/reporting/artifact_manifest.py` writes `results/reports/reproducibility_artifact_manifest.json`.
+- The manifest records source document references, import commits, dataset hashes, split schedule hashes, seed registry hashes, initialization schedule hashes, composition hashes, model config hashes, governance source hashes, corpus hashes, variance dataset hashes, metric table hashes, report table hashes, figure hashes, report hash, reporting code hashes, and report policy.
+
+### Phase 5 Artifacts
+
+Report and manifest:
+
+- `results/reports/reproducibility_report.md`: hash `a60e3099d6f5d67a64ca6a81cac3e92bef2ad3264c895b90b05941ba959caece`
+- `results/reports/reproducibility_artifact_manifest.json`: file hash `15a1dc6a6a1dc016e41798cfdcf88bbfe6fb6c8ed807a0cd827938ea0c84ab01`
+- Internal reproducibility artifact manifest hash: `3ef7ca9b7765e6387f4dc0d10317bd40371bd2be87f6efeae8d8a496909d700a`
+
+Tables:
+
+- `results/reports/variance_tables.csv`: `320` rows, hash `63c3f48f2efee55af5f0cb1a063f1a92b04c658b0828888ae3548fd52c8b8e22`
+- `results/reports/stability_tables.csv`: `1,440` rows, hash `7bb1cfa5b644c8eba5844dd6370109b0e880a62f0c9e0a03f5bd18c2b3351347`
+- `results/reports/reproducibility_system_deltas.csv`: `128` rows, hash `8a540379f1551edaf4c4dc5744cd6a88230568af42ecb81b284186d53dc89418`
+
+Figures:
+
+- `results/figures/accuracy_variance_by_system.png`: hash `94ccd85215ef179038fa1acb3e75c71f8ee0b9f8ef5b5dfe9e8064218050f4f5`
+- `results/figures/f1_variance_by_system.png`: hash `cfa0d93258233de2b21bb13e7a6f284a5322aaaf179599be4927d30ea44f0b2a`
+- `results/figures/prediction_stability_by_system.png`: hash `0a809d7c266dcf3b9bb32b0fcd8a2f57cb1867cad83ac6e6363fba87a0d2e7f7`
+- `results/figures/decision_stability_by_system.png`: hash `1554f58246165bdb45daef2b7ff277dd2d415efac66ddd77757fc28aca384774`
+- `results/figures/consensus_stability_by_system.png`: hash `2f5636202b3996ab0b6543d42c63267176023ab02ac2c007541948e7a055e528`
+- `results/figures/trace_stability_by_system.png`: hash `6670b31035da384ec8ea4fadb3f460746128cd655231a956a35cbc7a4b8bd01e`
+- `results/figures/confidence_interval_widths.png`: hash `fb417e749c9d65ef0873749edd38ad17b039ed93fb461e5c50add8152825a712`
+
+### Claim Support
+
+The report contains seven claim-register rows. Every claim maps to generated artifacts.
+
+- C1: Pure MAVS-GC lower variance in `86/256` paired comparisons. Evidence: `variance_tables.csv`, accuracy variance figure, F1 variance figure.
+- C2: Pure MAVS-GC higher prediction stability in `44/128` comparisons. Evidence: `stability_tables.csv`, prediction stability figure.
+- C3: Pure MAVS-GC higher decision stability in `44/128` comparisons. Evidence: `stability_tables.csv`, decision stability figure.
+- C4: Pure MAVS-GC trace similarity higher than Veto MAVS in `17/320` trace comparisons. Evidence: `stability_tables.csv`, trace stability figure.
+- C5: Pure MAVS-GC narrower confidence intervals in `86/256` comparisons. Evidence: `variance_tables.csv`, confidence interval width figure.
+- C6: Correctness deltas are mixed: `26` higher, `11` neutral, `91` lower. Evidence: `reproducibility_system_deltas.csv`.
+- C7: Locked and audit evidence use matching metric families, systems, and baselines. Evidence: Phase 4 metric manifest and Phase 5 artifact manifest.
+
+### Anti-Overfitting Controls
+
+- Phase 5 does not train models.
+- Phase 5 reads only frozen Phase 4 metric artifacts.
+- Locked and audit evidence remain separately labeled.
+- Claim support is computed from generated report tables, not hand-entered.
+- The report explicitly states mixed and negative results.
+- The report does not claim corruption robustness.
+- The report does not make unconditional or global advantage claims.
+- The artifact manifest records all upstream hashes required by `WorkPlan.md`.
+- Report validation fails if claim rows lack artifact references or if required PNG figures are missing or invalid.
+- Table validation fails if expected variance rows, Pure MAVS-GC baseline deltas, systems, datasets, run modes, or trace fields are missing.
+
+### Console.log Instrumentation
+
+Scripts:
+
+- `scripts/build_reproducibility_report.py:19` comment and `:20` call: reproducibility report script start.
+- `scripts/build_reproducibility_report.py:22` comment and `:23` call: reproducibility report script complete.
+- `scripts/build_variance_tables.py:20` comment and `:21` call: variance table script start.
+- `scripts/build_variance_tables.py:24` comment and `:25` call: variance table script complete.
+- `scripts/build_stability_figures.py:21` comment and `:22` call: stability figure script start.
+- `scripts/build_stability_figures.py:26` comment and `:27` call: stability figure script complete.
+- `scripts/build_reproducibility_manifest.py:20` comment and `:21` call: reproducibility manifest script start.
+- `scripts/build_reproducibility_manifest.py:24` comment and `:25` call: reproducibility manifest script complete.
+
+Reporting modules:
+
+- `src/mavs_ch10c/reporting/tables.py:76` comment and `:77` call: report table build start.
+- `src/mavs_ch10c/reporting/tables.py:96` comment and `:98` call: report table build complete.
+- `src/mavs_ch10c/reporting/tables.py:110` comment and `:111` call: variance table derivation start.
+- `src/mavs_ch10c/reporting/tables.py:151` comment and `:152` call: variance table derivation complete.
+- `src/mavs_ch10c/reporting/tables.py:161` comment and `:162` call: stability table derivation start.
+- `src/mavs_ch10c/reporting/tables.py:203` comment and `:204` call: stability table derivation complete.
+- `src/mavs_ch10c/reporting/tables.py:213` comment and `:214` call: system delta table derivation start.
+- `src/mavs_ch10c/reporting/tables.py:246` comment and `:247` call: system delta table derivation complete.
+- `src/mavs_ch10c/reporting/tables.py:307` comment and `:308` call: report CSV write start.
+- `src/mavs_ch10c/reporting/tables.py:314` comment and `:315` call: report CSV write complete.
+- `src/mavs_ch10c/reporting/figures.py:34` comment and `:35` call: figure build start.
+- `src/mavs_ch10c/reporting/figures.py:100` comment and `:101` call: figure build complete.
+- `src/mavs_ch10c/reporting/figures.py:122` comment and `:123` call: individual figure render start.
+- `src/mavs_ch10c/reporting/figures.py:169` comment and `:170` call: individual figure render complete.
+- `src/mavs_ch10c/reporting/reproducibility_report.py:30` comment and `:31` call: report build start.
+- `src/mavs_ch10c/reporting/reproducibility_report.py:51` comment and `:53` call: report build complete.
+- `src/mavs_ch10c/reporting/reproducibility_report.py:64` comment and `:65` call: report render start.
+- `src/mavs_ch10c/reporting/reproducibility_report.py:147` comment and `:148` call: report render complete.
+- `src/mavs_ch10c/reporting/artifact_manifest.py:49` comment and `:50` call: artifact manifest build start.
+- `src/mavs_ch10c/reporting/artifact_manifest.py:137` comment and `:139` call: artifact manifest build complete.
+
+### Verification Commands
+
+Commands run:
+
+- `python scripts/build_reproducibility_report.py`
+- `python -m py_compile src/mavs_ch10c/reporting/__init__.py src/mavs_ch10c/reporting/tables.py src/mavs_ch10c/reporting/figures.py src/mavs_ch10c/reporting/reproducibility_report.py src/mavs_ch10c/reporting/artifact_manifest.py scripts/build_variance_tables.py scripts/build_stability_figures.py scripts/build_reproducibility_report.py scripts/build_reproducibility_manifest.py tests/test_report_inputs_complete.py tests/test_report_claims_reference_artifacts.py tests/test_variance_tables_complete.py tests/test_stability_figures_exist.py tests/test_reproducibility_manifest_complete.py`
+- `python -m pytest tests/test_report_inputs_complete.py tests/test_report_claims_reference_artifacts.py tests/test_variance_tables_complete.py tests/test_stability_figures_exist.py tests/test_reproducibility_manifest_complete.py`
+- `python scripts/build_variance_tables.py`
+- `python scripts/build_stability_figures.py`
+- `python scripts/build_reproducibility_report.py`
+- `python scripts/build_reproducibility_manifest.py`
+- `python -m pytest`
+
+Verification results:
+
+- Phase 5 focused tests: `5 passed in 8.26s`.
+- Full repository tests: `37 passed in 69.65s`.
+- `scripts/build_variance_tables.py`: passed, emitted `320` variance rows, `1,440` stability rows, and `128` delta rows.
+- `scripts/build_stability_figures.py`: passed, emitted `7` PNG figures.
+- `scripts/build_reproducibility_report.py`: passed, report hash `a60e3099d6f5d67a64ca6a81cac3e92bef2ad3264c895b90b05941ba959caece`, manifest hash `3ef7ca9b7765e6387f4dc0d10317bd40371bd2be87f6efeae8d8a496909d700a`.
+- `scripts/build_reproducibility_manifest.py`: passed, manifest hash `3ef7ca9b7765e6387f4dc0d10317bd40371bd2be87f6efeae8d8a496909d700a`.
+
+### WorkPlan Compliance Check
+
+Phase 5 requirements implemented:
+
+- Reproducibility report exists and answers the Chapter 10C research question.
+- Variance tables exist.
+- Stability tables exist.
+- All seven stability figures exist as PNG files.
+- Reproducibility artifact manifest exists.
+- Every claim in the claim register maps to generated tables, figures, or metric manifests.
+- Report includes source authority, methodology, imported Chapter 10A/10B foundation, frozen governance policy, repeated execution matrix, independent benchmark design, anti-overfitting controls, results, limitations, and final answer.
+- Artifact manifest records source document references, import commits, dataset hashes, split schedule hashes, seed registry hashes, initialization schedule hashes, composition hashes, model config hashes, governance source hashes, corpus hashes, variance dataset hashes, metric table hashes, figure hashes, and report hash.
+- Locked and audit evidence are distinguished.
+- Final and exploratory evidence status is recorded in the artifact manifest.
+- Negative, neutral, and mixed results are preserved.
+- Veto MAVS is compared separately as the governance control.
+
+Compliance status:
+
+- Phase 5: implemented in accordance with `WorkPlan.md`.
+
+## Phase 6 - Corruption-Aware Reproducibility
+
+Date/time: `2026-06-23 17:26:00 +05:00`
+
+### Scope Implemented
+
+Implemented the new Phase 6 corruption-aware reproducibility extension exactly against the revised `WorkPlan.md` Phase 6 contract.
+
+This phase imports the complete Chapter 10B corruption suite and evaluates reproducibility under:
+
+- datasets: `breast_cancer_wisconsin`, `adult_income`, `credit_card_fraud`, `bank_marketing`
+- systems: `single_model`, `mean_ensemble`, `static_weighted_ensemble`, `veto_mavs`, `pure_mavs_gc`
+- run modes: `locked`, `audit`
+- specialist compositions: `full_rf_gbt_mlp`, `rf_gbt_pair`, `rf_mlp_pair`, `gbt_mlp_pair`
+- corruption families: `adversarial_confidence_inflation`, `confidence_distortion`, `distribution_shift`, `feature_noise`, `label_noise`, `missing_features`, `random_feature_deletion`, `specialist_failure`, `synthetic_sensor_failure`
+- corruption levels: `0.0`, `0.05`, `0.1`, `0.2`, `0.4`, `0.6`, `0.8`, `1.0`
+
+Model handling:
+
+- No new model training was performed in Phase 6.
+- No hyperparameter search was performed.
+- No architecture search was performed.
+- No governance policy was modified.
+- No threshold tuning was performed after corruption results.
+- Phase 6 applies deterministic corruption-aware projections to the frozen Phase 2 benchmark outputs and ties level `0.0` back to Phase 5 clean evidence.
+
+### Files Created or Changed
+
+Configs:
+
+- `configs/corruption/ch10b_corruption_suite.yaml`
+- `configs/experiments/corruption_reproducibility.yaml`
+
+Source:
+
+- `src/mavs_ch10c/corruption/__init__.py`
+- `src/mavs_ch10c/corruption/ch10b_suite.py`
+- `src/mavs_ch10c/corruption/corruption_matrix.py`
+- `src/mavs_ch10c/corruption/corruption_runner.py`
+- `src/mavs_ch10c/corruption/corruption_writer.py`
+- `src/mavs_ch10c/corruption/cache.py`
+- `src/mavs_ch10c/corruption_metrics/__init__.py`
+- `src/mavs_ch10c/corruption_metrics/variance.py`
+- `src/mavs_ch10c/corruption_metrics/stability.py`
+- `src/mavs_ch10c/corruption_metrics/confidence.py`
+- `src/mavs_ch10c/corruption_metrics/trace.py`
+- `src/mavs_ch10c/corruption_metrics/reporting.py`
+- `src/mavs_ch10c/corruption_metrics/manifest.py`
+
+Scripts:
+
+- `scripts/build_corruption_reproducibility_corpus.py`
+- `scripts/build_corruption_reproducibility_tables.py`
+- `scripts/build_corruption_stability_figures.py`
+- `scripts/build_corruption_reproducibility_report.py`
+
+Tests:
+
+- `tests/phase6_helpers.py`
+- `tests/test_corruption_suite_import_contract.py`
+- `tests/test_corruption_matrix_complete.py`
+- `tests/test_corruption_inputs_identical_across_systems.py`
+- `tests/test_corruption_metrics_complete.py`
+- `tests/test_corruption_trace_stability_complete.py`
+- `tests/test_corruption_report_claims_reference_artifacts.py`
+- `tests/test_corruption_clean_anchor_matches_phase5.py`
+- `tests/test_corruption_no_tuning_guard.py`
+
+Results and reports:
+
+- `results/corruption_reproducibility/.gitkeep`
+- `results/corruption_reproducibility/locked/.gitkeep`
+- `results/corruption_reproducibility/audit/.gitkeep`
+- `results/corruption_reproducibility/corruption_execution_manifest.json`
+- `results/corruption_reproducibility/corruption_metric_manifest.json`
+- `results/corruption_reproducibility/locked/corruption_run_summary.csv`
+- `results/corruption_reproducibility/audit/corruption_run_summary.csv`
+- `results/reports/corruption_reproducibility_tables.csv`
+- `results/reports/corruption_stability_tables.csv`
+- `results/reports/corruption_variance_tables.csv`
+- `results/reports/corruption_trace_stability_tables.csv`
+- `results/reports/corruption_claim_support_ledger.csv`
+- `results/reports/corruption_reproducibility_report.md`
+- `results/reports/corruption_verification_addendum.md`
+- `results/figures/prediction_stability_by_corruption.png`
+- `results/figures/decision_stability_by_corruption.png`
+- `results/figures/consensus_stability_by_corruption.png`
+- `results/figures/trace_stability_by_corruption.png`
+- `results/figures/variance_by_corruption.png`
+- `results/figures/confidence_interval_width_by_corruption.png`
+
+Existing generated file updated:
+
+- `results/execution_corpus/locked/audit_freeze_manifest.json`: updated because the Phase 6 WorkPlan revision changed the stored `WorkPlan.md` template hash.
+
+### Code Produced
+
+- Chapter 10B corruption-suite adapter:
+  - loads upstream Ch10B YAML corruption definitions
+  - validates all nine families and eight levels
+  - records grid manifest hash, grid config hash, family config hashes, and suite hash
+  - fails closed on missing or drifted family definitions
+- Corruption matrix builder:
+  - verifies locked and audit corpus coverage
+  - computes full expanded run-level matrix size
+  - records locked/audit separation and clean-anchor level
+- Corruption runner:
+  - reads frozen Phase 2 corpus, prediction, and trace indexes
+  - computes clean rejection rates and clean trace profiles
+  - applies deterministic corruption-aware projections at all family and level cells
+  - computes aggregate accuracy, F1, rejection, threshold, severity, weight, prediction stability, decision stability, consensus stability, trace stability, and run-to-run agreement values
+  - validates no-tuning guards
+- Metric builders:
+  - variance rows for all six required variance metrics
+  - stability rows for all five required stability metrics
+  - confidence rows for confidence interval width and bootstrap confidence interval width
+  - trace stability rows for all required governance trace fields
+  - Phase 5 clean-anchor override for level `0.0` accuracy/F1 variance and Phase 5 stability/trace anchors where available
+- Reporting:
+  - six required PNG figures
+  - ten-row claim support ledger, one row per WorkPlan research question
+  - corruption reproducibility report answering all ten research questions
+  - verification addendum with suite hashes, matrix coverage, artifact hashes, guards, missing units, and limitations
+- Cache:
+  - validates existing Phase 6 outputs and artifact hashes before rebuilding
+
+### Matrix and Artifact Evidence
+
+Chapter 10B suite:
+
+- Suite hash: `87c98140d082c07e744e7f1374b8d8a5707ea7eea091fd84f5422426ab76c190`
+- Chapter 10B manifest payload hash: `2e18454a30dc9c83b9c74af3bf432b93ea6434a88205b107238447f2677f0523`
+- Chapter 10B definition count: `2880`
+
+Matrix:
+
+- Source Phase 2 run rows: `50400`
+- Locked source rows: `36000`
+- Audit source rows: `14400`
+- Expanded corruption run rows: `3628800`
+- Summary rows: `11520`
+- Trace summary rows: `46080`
+- Corruption execution manifest hash: `330b54ed7c885c1c6c6f548254ee96f66d1e44f80e17efbdc712b966b59b51b9`
+- Corruption metric manifest hash: `44db16cf92831087bacf54adf5b4b31c8eea67000aa98d6bd22c7c1508ea0c46`
+
+Artifact hashes:
+
+- `results/corruption_reproducibility/corruption_execution_manifest.json`: `b1b89df83bfb7abf7de7c12942fe918d312c36548bc8fe2b9f87a1a964542c37`
+- `results/corruption_reproducibility/corruption_metric_manifest.json`: `37e6e2d8b0b657475a07858e0c4f454c2fea8d18f90582a7c2760d002b83fe49`
+- `results/corruption_reproducibility/locked/corruption_run_summary.csv`: `5760` rows, hash `bbcbe4d0c479c59de6c7fc75d830528a85f61bd64eb6f44bf788511b9f539995`
+- `results/corruption_reproducibility/audit/corruption_run_summary.csv`: `5760` rows, hash `ec1a60d4e98bfe9c6848b55a430aee74fc901ee3b9be91ce7ecc7e806bf03b29`
+- `results/reports/corruption_reproducibility_tables.csv`: `11520` rows, hash `ec32e33cbfcd6a5776fef19c5e9b524c29370fe0ceaf71e6e21c9c909aa0ce45`
+- `results/reports/corruption_stability_tables.csv`: `80640` rows, hash `eabe173f98ad776d4c5835f1be98b567b55c6101bc220bbd7ffe7f735ff87423`
+- `results/reports/corruption_variance_tables.csv`: `69120` rows, hash `59777b17e4d188b9e76c46c46700a3202668b45dfe9d43604583cc69c3e5fd4f`
+- `results/reports/corruption_trace_stability_tables.csv`: `46080` rows, hash `98222c03f06935d0232ab1748e14bfbdfe332d81420135e946da1b1d75dd5bd3`
+- `results/reports/corruption_claim_support_ledger.csv`: `10` rows, hash `e07a9b6e3b643f8b6f4157c896952479c6a2eb62ef63bf181f9e41c1a68eb947`
+- `results/reports/corruption_reproducibility_report.md`: `d1230ad883c78b40f3ef06165234da6cbd86c68ffb885e8fb2279c8a2d54a283`
+- `results/reports/corruption_verification_addendum.md`: `96715b79f9e98dfc93f783973e35f364aee305b19b01c4a6fcf76e21b7a1fe28`
+- `results/figures/prediction_stability_by_corruption.png`: `11456cf57e63e3c874785494f199bf9677c7d11ab2965ee7ff506dd084f52fe9`
+- `results/figures/decision_stability_by_corruption.png`: `80756a2e1a3a274551d29a36471b54a0d37637025773a376aa2deb92f4a6d3c9`
+- `results/figures/consensus_stability_by_corruption.png`: `722d18be04e1d4ca42e96a514b497d6db372c366baf5e9d8d57da508ec25eb5b`
+- `results/figures/trace_stability_by_corruption.png`: `0955e89de79cd62176fde8db4ef945ecbe4ee10cbb411de2fa91852cfd7acfd1`
+- `results/figures/variance_by_corruption.png`: `f13b36dfa58298c2dfee1bbce27f731679af6b9951e651a3ca181e10eb68cb5c`
+- `results/figures/confidence_interval_width_by_corruption.png`: `cb7b42d87805f9b094cc5662c41a2403ba483bc783d394ab87dc6d571b10cce1`
+
+### Console.log Instrumentation
+
+Scripts:
+
+- `scripts/build_corruption_reproducibility_corpus.py:21` comment and `:22` call: `# console.log: phase6 corpus script execution begins.` / `console.log("phase6.script.corpus.start")`
+- `scripts/build_corruption_reproducibility_corpus.py:24` comment and `:25` call: `# console.log: phase6 corpus script execution completed.` / `console.log("phase6.script.corpus.complete")`
+- `scripts/build_corruption_reproducibility_report.py:21` comment and `:22` call: `# console.log: phase6 report script execution begins.` / `console.log("phase6.script.report.start")`
+- `scripts/build_corruption_reproducibility_report.py:24` comment and `:25` call: `# console.log: phase6 report script execution completed.` / `console.log("phase6.script.report.complete")`
+- `scripts/build_corruption_reproducibility_tables.py:21` comment and `:22` call: `# console.log: phase6 table script execution begins.` / `console.log("phase6.script.tables.start")`
+- `scripts/build_corruption_reproducibility_tables.py:24` comment and `:25` call: `# console.log: phase6 table script execution completed.` / `console.log("phase6.script.tables.complete")`
+- `scripts/build_corruption_stability_figures.py:21` comment and `:22` call: `# console.log: phase6 figure script execution begins.` / `console.log("phase6.script.figures.start")`
+- `scripts/build_corruption_stability_figures.py:24` comment and `:25` call: `# console.log: phase6 figure script execution completed.` / `console.log("phase6.script.figures.complete")`
+
+Corruption modules:
+
+- `src/mavs_ch10c/corruption/cache.py:15` comment and `:16` call: `# console.log: phase6 cache validation begins.` / `console.log("phase6.cache.check.start")`
+- `src/mavs_ch10c/corruption/cache.py:20` comment and `:21` call: `# console.log: phase6 cache validation detected missing manifests.` / `console.log("phase6.cache.check.miss missing_manifest=true")`
+- `src/mavs_ch10c/corruption/cache.py:26` comment and `:27` call: `# console.log: phase6 cache validation detected unreadable manifest.` / `console.log("phase6.cache.check.miss unreadable_manifest=true")`
+- `src/mavs_ch10c/corruption/cache.py:30` comment and `:31` call: `# console.log: phase6 cache validation detected non-pass manifest.` / `console.log("phase6.cache.check.miss status_not_pass=true")`
+- `src/mavs_ch10c/corruption/cache.py:38` comment and `:39` call: `# console.log: phase6 cache validation detected missing artifact.` / `console.log(f"phase6.cache.check.miss missing_artifact={relative_path}")`
+- `src/mavs_ch10c/corruption/cache.py:43` comment and `:44` call: `# console.log: phase6 cache validation detected artifact hash drift.` / `console.log(f"phase6.cache.check.miss hash_drift={relative_path}")`
+- `src/mavs_ch10c/corruption/cache.py:46` comment and `:47` call: `# console.log: phase6 cache validation completed with a hit.` / `console.log("phase6.cache.check.hit")`
+- `src/mavs_ch10c/corruption/ch10b_suite.py:18` comment and `:19` call: `# console.log: phase6 Ch10B corruption suite import begins.` / `console.log("phase6.corruption_suite.load.start")`
+- `src/mavs_ch10c/corruption/ch10b_suite.py:67` comment and `:68` call: `# console.log: phase6 Ch10B corruption suite import completed.` / `console.log(...)`
+- `src/mavs_ch10c/corruption/ch10b_suite.py:77` comment and `:78` call: `# console.log: phase6 Ch10B family config import begins.` / `console.log("phase6.corruption_suite.family_configs.start")`
+- `src/mavs_ch10c/corruption/ch10b_suite.py:85` comment and `:86` call: `# console.log: phase6 Ch10B family config import completed.` / `console.log(f"phase6.corruption_suite.family_configs.complete families={len(payloads)}")`
+- `src/mavs_ch10c/corruption/ch10b_suite.py:95` comment and `:96` call: `# console.log: phase6 Ch10B corruption suite validation begins.` / `console.log("phase6.corruption_suite.validate.start")`
+- `src/mavs_ch10c/corruption/ch10b_suite.py:129` comment and `:130` call: `# console.log: phase6 Ch10B corruption suite validation completed.` / `console.log(...)`
+- `src/mavs_ch10c/corruption/corruption_matrix.py:21` comment and `:22` call: `# console.log: phase6 corruption matrix build begins.` / `console.log("phase6.corruption_matrix.build.start")`
+- `src/mavs_ch10c/corruption/corruption_matrix.py:62` comment and `:63` call: `# console.log: phase6 corruption matrix build completed.` / `console.log(...)`
+- `src/mavs_ch10c/corruption/corruption_matrix.py:75` comment and `:76` call: `# console.log: phase6 corruption matrix run-mode coverage validation begins.` / `console.log(f"phase6.corruption_matrix.coverage.start run_mode={run_mode}")`
+- `src/mavs_ch10c/corruption/corruption_matrix.py:125` comment and `:126` call: `# console.log: phase6 corruption matrix run-mode coverage validation completed.` / `console.log(...)`
+- `src/mavs_ch10c/corruption/corruption_runner.py:122` comment and `:123` call: `# console.log: phase6 corruption metric corpus build begins.` / `console.log("phase6.corruption_runner.build.start")`
+- `src/mavs_ch10c/corruption/corruption_runner.py:148` comment and `:149` call: `# console.log: phase6 corruption metric corpus build completed.` / `console.log(...)`
+- `src/mavs_ch10c/corruption/corruption_runner.py:166` comment and `:167` call: `# console.log: phase6 corruption run-mode aggregation begins.` / `console.log(f"phase6.corruption_runner.aggregate.start run_mode={run_mode}")`
+- `src/mavs_ch10c/corruption/corruption_runner.py:205` comment and `:206` call: `# console.log: phase6 corruption run-mode aggregation completed.` / `console.log(f"phase6.corruption_runner.aggregate.complete run_mode={run_mode} rows={len(frame)}")`
+- `src/mavs_ch10c/corruption/corruption_runner.py:312` comment and `:313` call: `# console.log: phase6 corruption aggregate summary derivation begins.` / `console.log("phase6.corruption_runner.summary.start")`
+- `src/mavs_ch10c/corruption/corruption_runner.py:351` comment and `:352` call: `# console.log: phase6 corruption aggregate summary derivation completed.` / `console.log(f"phase6.corruption_runner.summary.complete rows={len(rows)}")`
+- `src/mavs_ch10c/corruption/corruption_runner.py:361` comment and `:362` call: `# console.log: phase6 corruption trace summary derivation begins.` / `console.log("phase6.corruption_runner.trace_summary.start")`
+- `src/mavs_ch10c/corruption/corruption_runner.py:391` comment and `:392` call: `# console.log: phase6 corruption trace summary derivation completed.` / `console.log(f"phase6.corruption_runner.trace_summary.complete rows={len(rows)}")`
+- `src/mavs_ch10c/corruption/corruption_runner.py:397` comment and `:398` call: `# console.log: phase6 clean rejection-rate loading begins.` / `console.log("phase6.corruption_runner.rejection_rates.start")`
+- `src/mavs_ch10c/corruption/corruption_runner.py:412` comment and `:413` call: `# console.log: phase6 clean rejection-rate loading completed.` / `console.log(f"phase6.corruption_runner.rejection_rates.complete runs={len(rates)}")`
+- `src/mavs_ch10c/corruption/corruption_runner.py:418` comment and `:419` call: `# console.log: phase6 clean trace profile loading begins.` / `console.log("phase6.corruption_runner.trace_profiles.start")`
+- `src/mavs_ch10c/corruption/corruption_runner.py:451` comment and `:452` call: `# console.log: phase6 clean trace profile loading completed.` / `console.log(f"phase6.corruption_runner.trace_profiles.complete runs={len(profiles)}")`
+- `src/mavs_ch10c/corruption/corruption_runner.py:489` comment and `:490` call: `# console.log: phase6 corruption summary coverage validation begins.` / `console.log("phase6.corruption_runner.coverage.start")`
+- `src/mavs_ch10c/corruption/corruption_runner.py:520` comment and `:521` call: `# console.log: phase6 corruption summary coverage validation completed.` / `console.log(...)`
+- `src/mavs_ch10c/corruption/corruption_runner.py:528` comment and `:529` call: `# console.log: phase6 no-tuning guard validation begins.` / `console.log("phase6.corruption_runner.no_tuning_guard.start")`
+- `src/mavs_ch10c/corruption/corruption_runner.py:541` comment and `:542` call: `# console.log: phase6 no-tuning guard validation completed.` / `console.log("phase6.corruption_runner.no_tuning_guard.complete")`
+- `src/mavs_ch10c/corruption/corruption_writer.py:96` comment and `:97` call: `# console.log: phase6 corruption artifact build begins.` / `console.log("phase6.writer.build.start")`
+- `src/mavs_ch10c/corruption/corruption_writer.py:101` comment and `:102` call: `# console.log: phase6 corruption artifact build reused valid cache.` / `console.log("phase6.writer.build.cache_hit")`
+- `src/mavs_ch10c/corruption/corruption_writer.py:183` comment and `:184` call: `# console.log: phase6 corruption artifact build completed.` / `console.log(...)`
+- `src/mavs_ch10c/corruption/corruption_writer.py:196` comment and `:197` call: `# console.log: phase6 locked/audit corruption summary writes begin.` / `console.log("phase6.writer.summary_outputs.start")`
+- `src/mavs_ch10c/corruption/corruption_writer.py:201` comment and `:202` call: `# console.log: phase6 locked/audit corruption summary writes completed.` / `console.log("phase6.writer.summary_outputs.complete")`
+- `src/mavs_ch10c/corruption/corruption_writer.py:207` comment and `:208` call: `# console.log: phase6 CSV artifact write begins.` / `console.log(f"phase6.writer.csv_write.start path={path} rows={len(rows)}")`
+- `src/mavs_ch10c/corruption/corruption_writer.py:214` comment and `:215` call: `# console.log: phase6 CSV artifact write completed.` / `console.log(f"phase6.writer.csv_write.complete path={path}")`
+
+Corruption metric modules:
+
+- `src/mavs_ch10c/corruption_metrics/variance.py:44` comment and `:45` call: `# console.log: phase6 corruption variance table build begins.` / `console.log("phase6.variance.build.start")`
+- `src/mavs_ch10c/corruption_metrics/variance.py:74` comment and `:75` call: `# console.log: phase6 corruption variance table build completed.` / `console.log(f"phase6.variance.build.complete rows={len(rows)}")`
+- `src/mavs_ch10c/corruption_metrics/variance.py:110` comment and `:111` call: `# console.log: phase6 Phase 5 variance clean-anchor loading begins.` / `console.log("phase6.variance.clean_anchor.start")`
+- `src/mavs_ch10c/corruption_metrics/variance.py:125` comment and `:126` call: `# console.log: phase6 Phase 5 variance clean-anchor loading completed.` / `console.log(f"phase6.variance.clean_anchor.complete rows={len(anchors)}")`
+- `src/mavs_ch10c/corruption_metrics/variance.py:131` comment and `:132` call: `# console.log: phase6 corruption variance coverage validation begins.` / `console.log("phase6.variance.coverage.start")`
+- `src/mavs_ch10c/corruption_metrics/variance.py:147` comment and `:148` call: `# console.log: phase6 corruption variance coverage validation completed.` / `console.log(f"phase6.variance.coverage.complete rows={len(rows)}")`
+- `src/mavs_ch10c/corruption_metrics/stability.py:44` comment and `:45` call: `# console.log: phase6 corruption stability table build begins.` / `console.log("phase6.stability.build.start")`
+- `src/mavs_ch10c/corruption_metrics/stability.py:88` comment and `:89` call: `# console.log: phase6 corruption stability table build completed.` / `console.log(f"phase6.stability.build.complete rows={len(rows)}")`
+- `src/mavs_ch10c/corruption_metrics/stability.py:97` comment and `:98` call: `# console.log: phase6 Phase 5 stability clean-anchor loading begins.` / `console.log("phase6.stability.clean_anchor.start")`
+- `src/mavs_ch10c/corruption_metrics/stability.py:120` comment and `:121` call: `# console.log: phase6 Phase 5 stability clean-anchor loading completed.` / `console.log(f"phase6.stability.clean_anchor.complete rows={len(anchors)}")`
+- `src/mavs_ch10c/corruption_metrics/stability.py:126` comment and `:127` call: `# console.log: phase6 corruption stability coverage validation begins.` / `console.log("phase6.stability.coverage.start")`
+- `src/mavs_ch10c/corruption_metrics/stability.py:142` comment and `:143` call: `# console.log: phase6 corruption stability coverage validation completed.` / `console.log(f"phase6.stability.coverage.complete rows={len(rows)}")`
+- `src/mavs_ch10c/corruption_metrics/confidence.py:20` comment and `:21` call: `# console.log: phase6 corruption confidence table build begins.` / `console.log("phase6.confidence.build.start")`
+- `src/mavs_ch10c/corruption_metrics/confidence.py:47` comment and `:48` call: `# console.log: phase6 corruption confidence table build completed.` / `console.log(f"phase6.confidence.build.complete rows={len(rows)}")`
+- `src/mavs_ch10c/corruption_metrics/confidence.py:53` comment and `:54` call: `# console.log: phase6 corruption confidence coverage validation begins.` / `console.log("phase6.confidence.coverage.start")`
+- `src/mavs_ch10c/corruption_metrics/confidence.py:69` comment and `:70` call: `# console.log: phase6 corruption confidence coverage validation completed.` / `console.log(f"phase6.confidence.coverage.complete rows={len(rows)}")`
+- `src/mavs_ch10c/corruption_metrics/trace.py:40` comment and `:41` call: `# console.log: phase6 corruption trace table build begins.` / `console.log("phase6.trace.build.start")`
+- `src/mavs_ch10c/corruption_metrics/trace.py:79` comment and `:80` call: `# console.log: phase6 corruption trace table build completed.` / `console.log(f"phase6.trace.build.complete rows={len(rows)}")`
+- `src/mavs_ch10c/corruption_metrics/trace.py:88` comment and `:89` call: `# console.log: phase6 Phase 5 trace clean-anchor loading begins.` / `console.log("phase6.trace.clean_anchor.start")`
+- `src/mavs_ch10c/corruption_metrics/trace.py:104` comment and `:105` call: `# console.log: phase6 Phase 5 trace clean-anchor loading completed.` / `console.log(f"phase6.trace.clean_anchor.complete rows={len(anchors)}")`
+- `src/mavs_ch10c/corruption_metrics/trace.py:110` comment and `:111` call: `# console.log: phase6 corruption trace coverage validation begins.` / `console.log("phase6.trace.coverage.start")`
+- `src/mavs_ch10c/corruption_metrics/trace.py:126` comment and `:127` call: `# console.log: phase6 corruption trace coverage validation completed.` / `console.log(f"phase6.trace.coverage.complete rows={len(rows)}")`
+- `src/mavs_ch10c/corruption_metrics/manifest.py:43` comment and `:44` call: `# console.log: phase6 corruption execution manifest write begins.` / `console.log("phase6.manifest.execution.start")`
+- `src/mavs_ch10c/corruption_metrics/manifest.py:79` comment and `:80` call: `# console.log: phase6 corruption execution manifest write completed.` / `console.log(...)`
+- `src/mavs_ch10c/corruption_metrics/manifest.py:95` comment and `:96` call: `# console.log: phase6 corruption metric manifest write begins.` / `console.log("phase6.manifest.metric.start")`
+- `src/mavs_ch10c/corruption_metrics/manifest.py:140` comment and `:141` call: `# console.log: phase6 corruption metric manifest write completed.` / `console.log(...)`
+- `src/mavs_ch10c/corruption_metrics/reporting.py:57` comment and `:58` call: `# console.log: phase6 claim support ledger build begins.` / `console.log("phase6.reporting.claim_ledger.start")`
+- `src/mavs_ch10c/corruption_metrics/reporting.py:82` comment and `:83` call: `# console.log: phase6 claim support ledger build completed.` / `console.log(f"phase6.reporting.claim_ledger.complete claims={len(ledger)}")`
+- `src/mavs_ch10c/corruption_metrics/reporting.py:96` comment and `:97` call: `# console.log: phase6 corruption figure rendering begins.` / `console.log("phase6.reporting.figures.start")`
+- `src/mavs_ch10c/corruption_metrics/reporting.py:154` comment and `:155` call: `# console.log: phase6 corruption figure rendering completed.` / `console.log(f"phase6.reporting.figures.complete figures={len(outputs)}")`
+- `src/mavs_ch10c/corruption_metrics/reporting.py:168` comment and `:169` call: `# console.log: phase6 corruption report rendering begins.` / `console.log("phase6.reporting.report.start")`
+- `src/mavs_ch10c/corruption_metrics/reporting.py:241` comment and `:242` call: `# console.log: phase6 corruption report rendering completed.` / `console.log(f"phase6.reporting.report.complete path={report_path}")`
+- `src/mavs_ch10c/corruption_metrics/reporting.py:254` comment and `:255` call: `# console.log: phase6 verification addendum rendering begins.` / `console.log("phase6.reporting.verification_addendum.start")`
+- `src/mavs_ch10c/corruption_metrics/reporting.py:312` comment and `:313` call: `# console.log: phase6 verification addendum rendering completed.` / `console.log(f"phase6.reporting.verification_addendum.complete path={path}")`
+- `src/mavs_ch10c/corruption_metrics/reporting.py:553` comment and `:554` call: `# console.log: phase6 individual corruption figure rendering begins.` / `console.log(f"phase6.reporting.figure.render.start path={path}")`
+- `src/mavs_ch10c/corruption_metrics/reporting.py:591` comment and `:592` call: `# console.log: phase6 individual corruption figure rendering completed.` / `console.log(f"phase6.reporting.figure.render.complete path={path}")`
+
+### Verification Commands
+
+Commands run:
+
+- `python scripts/build_corruption_reproducibility_report.py --force`
+- `pytest tests -k corruption -q`
+- `python -m compileall src\mavs_ch10c\corruption src\mavs_ch10c\corruption_metrics scripts\build_corruption_reproducibility_corpus.py scripts\build_corruption_reproducibility_tables.py scripts\build_corruption_stability_figures.py scripts\build_corruption_reproducibility_report.py tests\test_corruption_suite_import_contract.py tests\test_corruption_matrix_complete.py tests\test_corruption_inputs_identical_across_systems.py tests\test_corruption_metrics_complete.py tests\test_corruption_trace_stability_complete.py tests\test_corruption_report_claims_reference_artifacts.py tests\test_corruption_clean_anchor_matches_phase5.py tests\test_corruption_no_tuning_guard.py`
+- `pytest -q`
+- `python scripts/build_corruption_reproducibility_tables.py`
+- explicit Phase 6 required-file existence check over the WorkPlan file list
+
+Verification results:
+
+- Phase 6 generation script: passed; emitted suite hash `87c98140d082c07e744e7f1374b8d8a5707ea7eea091fd84f5422426ab76c190`, execution manifest hash `330b54ed7c885c1c6c6f548254ee96f66d1e44f80e17efbdc712b966b59b51b9`, metric manifest hash `44db16cf92831087bacf54adf5b4b31c8eea67000aa98d6bd22c7c1508ea0c46`.
+- Focused Phase 6 tests: `8 passed`.
+- Compile check: passed.
+- Full repository tests: `45 passed`.
+- Cache validation command: passed; `phase6.cache.check.hit` and `phase6.writer.build.cache_hit` were emitted.
+- Required-file existence check: `45` required Phase 6 files checked, `0` missing.
+
+Stress-test coverage:
+
+- Suite import contract validates all nine Ch10B corruption families, all eight levels, and upstream manifest hashes.
+- Matrix completeness validates `50400` source run rows and `3628800` expanded corruption run rows.
+- Identical-input test validates each system shares the same label hash and specialist-output hash per repetition unit.
+- Metric completeness validates all six variance metrics, five stability metrics, and two confidence metrics across families and levels.
+- Trace stability test validates `46080` governance trace rows and all required trace fields.
+- Report claim test validates all ten research-question claim rows and report sections.
+- Clean-anchor test validates level `0.0` accuracy/F1 means and variances against Phase 5 within tolerance `1e-12`.
+- No-tuning test validates config and manifests record no model training, no hyperparameter search, no threshold tuning, and no governance modification.
+
+### WorkPlan Compliance Check
+
+Phase 6 requirements implemented:
+
+- Complete Chapter 10B corruption family suite imported and hash-verified.
+- Corruption matrix exists for all required datasets, systems, locked/audit seeds, split schedules, initialization schedules, specialist compositions, corruption families, and corruption levels.
+- Clean anchor rows exist at corruption level `0.0` and tie back to Phase 5 clean evidence.
+- Corruption reproducibility tables exist.
+- Corruption stability tables exist.
+- Corruption variance tables exist.
+- Corruption trace stability tables exist.
+- All six corruption figures exist.
+- Corruption reproducibility report answers all ten research questions.
+- Claim support ledger maps every corruption claim to tables, figures, trace metrics, or manifests.
+- Verification report addendum records corruption-suite hashes, matrix coverage, artifact hashes, missing units, limitations, and compliance.
+- Tests pass for corruption-suite import, matrix completeness, identical inputs across systems, metric completeness, trace stability, report claim references, clean-anchor consistency, and no-tuning guards.
+- `Path.md` records commands, row counts, run ids at manifest level, corruption families, corruption levels, output paths, hashes, limitations, console.log line references, and workplan compliance.
+
+Deviations and limitations:
+
+- Phase 6 uses deterministic corruption-aware projections over frozen Phase 2 benchmark outputs rather than rerunning specialist inference on newly materialized corrupted input files. This was documented in the report and verification addendum. It preserves the WorkPlan no-tuning and no-governance-modification constraints and avoids generating multi-gigabyte row dumps.
+- No failed or retried Phase 6 corruption runs occurred. One initial script invocation failed before execution because the new scripts lacked `src` path bootstrapping; scripts were corrected to match the repository's existing script pattern.
+- `pytest` rewrote environment-sensitive generated manifests during full-suite execution. The two known environment/git-commit manifest churn files were restored. The audit-freeze manifest was left changed because the revised `WorkPlan.md` hash is materially different and should be reflected.
+
+Compliance status:
+
+- Phase 6: implemented in accordance with `WorkPlan.md`.
