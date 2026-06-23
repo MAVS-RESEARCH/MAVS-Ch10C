@@ -2739,3 +2739,253 @@ Deviations and limitations:
 Compliance status:
 
 - Phase 6: implemented in accordance with `WorkPlan.md`.
+
+## Phase 7 - Verification, Reproduction, and Release Readiness
+
+Date/time: `2026-06-23 22:32:36 +05:00`
+
+### Scope Being Implemented
+
+Phase 7 implements final end-to-end verification so the repository can serve as the Chapter 10C reproducibility artifact. The final gate verifies both clean Phase 5 evidence and corruption-aware Phase 6 evidence without changing MAVS-GC governance semantics.
+
+Files planned and implemented in this phase:
+
+- `scripts/reproduce_all.py`
+- `scripts/hash_artifacts.py`
+- `scripts/verify_artifacts.py`
+- `src/mavs_ch10c/verification/final_verification.py`
+- `results/reports/artifact_inventory.json`
+- `results/reports/verification_report.md`
+- `results/reports/corruption_verification_addendum.md`
+- `tests/test_end_to_end_smoke.py`
+- `tests/test_artifact_inventory_complete.py`
+- `tests/test_final_run_guards.py`
+- `tests/test_locked_audit_independence.py`
+- `tests/test_no_governance_source_drift.py`
+- `tests/test_path_md_complete.py`
+- `tests/test_final_corruption_artifacts_complete.py`
+- `tests/test_final_corruption_claims_reference_artifacts.py`
+
+Final evidence policy:
+
+- No new model development is allowed.
+- No hyperparameter search is allowed.
+- No governance-source modification is allowed.
+- Final clean evidence must come from frozen Phase 2-5 outputs.
+- Final corruption evidence must come from frozen Phase 6 outputs.
+- Smoke checks may validate wiring but cannot become final evidence.
+
+### WorkPlan Compliance Check
+
+Phase 7 compliance will be determined after:
+
+- `python scripts/reproduce_all.py --run-mode final`
+- `python scripts/hash_artifacts.py`
+- `python scripts/verify_artifacts.py`
+- focused Phase 7 tests
+- full repository test suite
+
+Expected outputs:
+
+- `results/reports/artifact_inventory.json`
+- `results/reports/verification_report.md`
+
+Expected status:
+
+- `verification_report.md` overall status `pass`
+- `corruption_verification_addendum.md` overall status `pass`
+
+### Code Produced
+
+Phase 7 code now provides:
+
+- one-command final reproduction/verification: `scripts/reproduce_all.py`
+- artifact inventory builder: `scripts/hash_artifacts.py`
+- final verification runner: `scripts/verify_artifacts.py`
+- final verification implementation: `src/mavs_ch10c/verification/final_verification.py`
+- final tests for end-to-end execution, inventory completeness, final-run guards, locked/audit independence, governance drift, Path.md completeness, corruption artifacts, and corruption claim references
+
+`reproduce_all.py --run-mode final` validates or rebuilds the full evidence chain:
+
+- validates Chapter 10A/10B foundation imports
+- validates the repetition grid against the recorded grid hash
+- validates locked corpus cache
+- validates audit corpus cache
+- builds or validates the Phase 3 variance benchmark dataset
+- builds or validates Phase 4 reproducibility metrics
+- rebuilds Phase 5 report tables, figures, report, and artifact manifest
+- validates Phase 6 corruption outputs through cache
+- writes `artifact_inventory.json`
+- writes `verification_report.md`
+
+### Console.log Instrumentation
+
+Scripts:
+
+- `scripts/reproduce_all.py:25` comment and `:26` call: `# console.log: phase7 reproduce-all script begins.` / `console.log(f"phase7.script.reproduce_all.start repo_root={repo_root} run_mode={args.run_mode}")`
+- `scripts/reproduce_all.py:28` comment and `:29` call: `# console.log: phase7 reproduce-all script completed.` / `console.log("phase7.script.reproduce_all.complete")`
+- `scripts/hash_artifacts.py:19` comment and `:20` call: `# console.log: phase7 hash-artifacts script begins.` / `console.log(f"phase7.script.hash_artifacts.start repo_root={repo_root}")`
+- `scripts/hash_artifacts.py:22` comment and `:23` call: `# console.log: phase7 hash-artifacts script completed.` / `console.log("phase7.script.hash_artifacts.complete")`
+- `scripts/verify_artifacts.py:19` comment and `:20` call: `# console.log: phase7 verify-artifacts script begins.` / `console.log(f"phase7.script.verify_artifacts.start repo_root={repo_root}")`
+- `scripts/verify_artifacts.py:24` comment and `:25` call: `# console.log: phase7 verify-artifacts script completed.` / `console.log("phase7.script.verify_artifacts.complete")`
+
+Verification module:
+
+- `src/mavs_ch10c/verification/final_verification.py:174` comment and `:175` call: `# console.log: phase7 one-command reproduction begins.` / `console.log(f"phase7.reproduce_all.start run_mode={run_mode}")`
+- `src/mavs_ch10c/verification/final_verification.py:210` comment and `:211` call: `# console.log: phase7 one-command reproduction completed.` / `console.log(...)`
+- `src/mavs_ch10c/verification/final_verification.py:221` comment and `:222` call: `# console.log: phase7 artifact inventory build begins.` / `console.log("phase7.inventory.build.start")`
+- `src/mavs_ch10c/verification/final_verification.py:253` comment and `:254` call: `# console.log: phase7 artifact inventory build completed.` / `console.log(...)`
+- `src/mavs_ch10c/verification/final_verification.py:267` comment and `:268` call: `# console.log: phase7 release verification begins.` / `console.log("phase7.verify.start")`
+- `src/mavs_ch10c/verification/final_verification.py:302` comment and `:303` call: `# console.log: phase7 release verification completed.` / `console.log(...)`
+- `src/mavs_ch10c/verification/final_verification.py:311` comment and `:312` call: `# console.log: phase7 foundation import validation begins.` / `console.log("phase7.foundation.validate.start")`
+- `src/mavs_ch10c/verification/final_verification.py:318` comment and `:319` call: `# console.log: phase7 foundation import validation completed.` / `console.log("phase7.foundation.validate.complete")`
+- `src/mavs_ch10c/verification/final_verification.py:323` comment and `:324` call: `# console.log: phase7 repetition-grid validation begins.` / `console.log("phase7.repetition_grid.validate.start")`
+- `src/mavs_ch10c/verification/final_verification.py:331` comment and `:332` call: `# console.log: phase7 repetition-grid validation completed.` / `console.log(f"phase7.repetition_grid.validate.complete rows={len(computed_units)}")`
+
+### Artifact Inventory and Verification Evidence
+
+Generated artifacts:
+
+- `results/reports/artifact_inventory.json`: status `pass`, `204` entries, no missing required categories, no missing required artifacts
+- `results/reports/verification_report.md`: overall status `pass`, hash `1bb3c2faf55c857a267a871e01c9c971ac4ce87b3ded0af2d6ba8499c8075e1d`
+- `results/reports/corruption_verification_addendum.md`: overall status `pass`, hash `96715b79f9e98dfc93f783973e35f364aee305b19b01c4a6fcf76e21b7a1fe28`
+
+Verification report gates:
+
+- required files exist: `pass`
+- artifact inventory complete: `pass`
+- artifact hashes match: `pass`
+- no governance source drift: `pass`
+- seed registry complete: `pass`
+- locked/audit independence: `pass`
+- split partitions disjoint: `pass`
+- systems and metrics complete: `pass`
+- governance trace contract: `pass`
+- clean report claims reference artifacts: `pass`
+- corruption families, levels, and metrics complete: `pass`
+- corruption claims reference artifacts: `pass`
+- corruption clean anchor matches Phase 5: `pass`
+- final run guards: `pass`
+- Path.md complete: `pass`
+- corruption verification addendum pass: `pass`
+
+### Verification Commands
+
+Commands run:
+
+- `python -m compileall src\mavs_ch10c\verification\final_verification.py scripts\reproduce_all.py scripts\hash_artifacts.py scripts\verify_artifacts.py tests\test_end_to_end_smoke.py tests\test_artifact_inventory_complete.py tests\test_final_run_guards.py tests\test_locked_audit_independence.py tests\test_no_governance_source_drift.py tests\test_path_md_complete.py tests\test_final_corruption_artifacts_complete.py tests\test_final_corruption_claims_reference_artifacts.py`
+- `python scripts/reproduce_all.py --run-mode final`
+- `python scripts/hash_artifacts.py`
+- `python scripts/verify_artifacts.py`
+- `pytest tests/test_end_to_end_smoke.py tests/test_artifact_inventory_complete.py tests/test_final_run_guards.py tests/test_locked_audit_independence.py tests/test_no_governance_source_drift.py tests/test_path_md_complete.py tests/test_final_corruption_artifacts_complete.py tests/test_final_corruption_claims_reference_artifacts.py -q`
+- `pytest -q`
+
+Verification results:
+
+- Compile check: passed.
+- First `python scripts/reproduce_all.py --run-mode final` attempt failed inside the Phase 7 verification gate because `verification_report.md` was checked before being written and clean confidence interval width was represented as a report-table field rather than a metric-name row. The gate logic was corrected.
+- Final `python scripts/reproduce_all.py --run-mode final`: passed.
+- `python scripts/hash_artifacts.py`: passed.
+- `python scripts/verify_artifacts.py`: passed.
+- Focused Phase 7 tests: `8 passed`.
+- Full repository tests: `53 passed`.
+- The Path.md final-evidence gate was tightened to fail unless Path.md contains final run-id language, artifact hash language, deviation/limitation records, the final reproduce-all pass record, and the full-suite pass record.
+
+### Stress-Test Coverage
+
+Phase 7 stress testing covered:
+
+- final one-command reproduction command
+- final artifact inventory category completeness
+- required file existence
+- artifact hash recomputation
+- Chapter 10A governance-source hash drift
+- locked/audit seed and split independence
+- representative split partition disjointness across all datasets
+- required system and metric coverage
+- governance trace field contract
+- clean report claim-reference policy
+- corruption family, level, metric, and trace coverage
+- corruption claim support references
+- Phase 6 clean-anchor equality against Phase 5 clean variance evidence
+- final run guards excluding exploratory, training, validation, calibration, smoke, and tuning evidence
+- Path.md completeness
+- corruption verification addendum status
+
+### Deviations and Limitations
+
+- `reproduce_all.py --run-mode final` validates and reuses frozen cached Phase 2 corpora rather than retraining all specialists. This follows the Phase 7 model-handling rule that final evidence must come from frozen final matrices and avoids converting smoke or exploratory reruns into final evidence.
+- The full test suite rewrites environment-sensitive Phase 1 manifests (`foundation_import_manifest.json` and `repetition_grid_manifest.json`) because those tests intentionally exercise manifest writers. This is test-generated metadata churn, not a governance or metric change.
+- The first final verification attempt failed and was retried after correcting the Phase 7 verification gate. The successful rerun is the recorded final result.
+
+### Final WorkPlan Compliance Check
+
+Phase 7 requirements implemented:
+
+- `scripts/reproduce_all.py` exists and `python scripts/reproduce_all.py --run-mode final` succeeds.
+- `scripts/hash_artifacts.py` exists and writes `results/reports/artifact_inventory.json`.
+- `scripts/verify_artifacts.py` exists and writes `results/reports/verification_report.md`.
+- Artifact inventory is complete.
+- Verification report has overall status `pass`.
+- Corruption verification addendum has overall status `pass`.
+- Required final verification tests exist.
+- Focused Phase 7 tests pass.
+- Full repository test suite passes.
+- `Path.md` contains the implementation trail from source review through final verification.
+
+Compliance status:
+
+- Phase 7: implemented in accordance with `WorkPlan.md`.
+
+## Release Finalization - README and Push Preparation
+
+### Scope
+
+The final release touch updated the repository-facing documentation so the checkout no longer describes only Phase 1. The README now documents the completed Chapter 10C scope, upstream prerequisites, setup command, final reproduction command, verification commands, primary clean and corruption outputs, final evidence policy, and current verified status.
+
+### Files Updated
+
+- `README.md`: rewritten as the release README for the completed Phase 1 through Phase 7 artifact.
+- `Path.md`: updated with this release-finalization entry.
+
+### Verification Plan
+
+After this documentation update, the final release checks must be rerun because `README.md` and `Path.md` are required release artifacts and are included in the artifact inventory:
+
+- `python scripts/reproduce_all.py --run-mode final`
+- `python scripts/hash_artifacts.py`
+- `python scripts/verify_artifacts.py`
+- focused Phase 7 tests
+- full repository test suite
+
+### Compliance Note
+
+This finalization changes documentation only. It does not alter MAVS-GC governance code, model execution code, corruption metrics, clean metrics, final evidence tables, or report claim logic.
+
+### Finalization Results
+
+Commands run after the README update:
+
+- `python scripts/reproduce_all.py --run-mode final`: passed.
+- `python scripts/hash_artifacts.py`: passed.
+- `python scripts/verify_artifacts.py`: passed.
+- Focused Phase 7 tests: `8 passed`.
+- Full repository tests: `53 passed`.
+
+Release-gate evidence after the README update:
+
+- Artifact inventory status: `pass`.
+- Artifact inventory entries: `204`.
+- Verification report overall status: `pass`.
+- Verification report hash: `1bb3c2faf55c857a267a871e01c9c971ac4ce87b3ded0af2d6ba8499c8075e1d`.
+- Corruption verification addendum overall status: `pass`.
+- Corruption verification addendum hash: `96715b79f9e98dfc93f783973e35f364aee305b19b01c4a6fcf76e21b7a1fe28`.
+
+The audit-freeze manifest was intentionally updated because its `report_template_hashes` contract includes `README.md`. The new frozen README hash is `b973a4b30b4bcde76d5c13868541d1a1e32be864b97baf5c901a1af1718ddd36`, and the new `audit_freeze_manifest_hash` is `374cc1a1307a69df78cfeef5b98823b97a229bd78fa9d92bca7ca58317542135`.
+
+The full test suite rewrote the two known environment-sensitive generated manifests:
+
+- `results/foundation_import/foundation_import_manifest.json`
+- `results/run_manifests/repetition_grid_manifest.json`
+
+Those two files were restored to the repository baseline because the diffs contained only environment hash, git commit, and manifest self-hash churn from tests. This restoration does not remove any Phase 7 implementation or release evidence.
